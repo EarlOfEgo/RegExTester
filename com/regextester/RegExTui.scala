@@ -20,5 +20,20 @@
 package com.regextester
 
 class RegExTui {
-
+	
+	/**
+	 * Writes the output... yeah!!!
+	 * */
+	def writeOutput(output: String) = println(output)
+	
+	/**
+	 * Reads the input
+	 * */
+	def readInput() = readLine("\033[5mRET: ")
+	
+	def printMenu() = {
+		println("******REGEXTESTER******")
+		println("type :help for information and :quit for exiting the super RegExTesters")
+	}
+	
 }

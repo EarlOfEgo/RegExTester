@@ -20,5 +20,15 @@
 package com.regextester
 
 class RegExModelBase {
-
+	
+	var regEx = ""
+	var toMatch = ""
+	var expression1 = ""
+	var expression2 = ""
+	//var resultList
+	
+	def fillList() = {
+	  
+	}
+  
 }
