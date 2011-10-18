@@ -25,7 +25,10 @@ class RegExModelBase {
 	var toMatch = ""
 	var expression1 = ""
 	var expression2 = ""
+	var regExList: List[String] = Nil
+	
 	//var resultList
+	
 	
 	def fillList() = {
 	  

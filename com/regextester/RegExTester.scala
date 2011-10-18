@@ -23,5 +23,6 @@ object RegExTester {
 
   def main(args: Array[String]): Unit = {
   	var controller = new RegExController()
+  	
   }
 }

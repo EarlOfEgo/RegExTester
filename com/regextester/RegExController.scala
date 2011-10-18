@@ -18,6 +18,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 package com.regextester
+import com.sun.org.apache.xalan.internal.xsltc.compiler.ForEach
 
 
 class RegExController {
@@ -58,52 +59,34 @@ class RegExController {
 	  
 	}
 	
+	
 	/**
-	 * Cuts the regex into pieces
+	 * Cuts the regex into pieces and insert them into a list with super funky recursion stuff
 	 * */
-	def cutRegEx(regEx: String) = {
-		val digit = """(\\d)(*|?|+|{\d+}|{\d+,\d*})?.*""".r
-		val nonDigit = """(\\D)(*|?|+|{\d+}|{\d+,\d*})?.*""".r
-		val word = """(\\w)(*|?|+|{\d+}|{\d+,\d*})?.*""".r
-		val nonWord = """(\\W)(*|?|+|{\d+}|{\d+,\d*})?.*""".r
-		val space = """(\\s)(*|?|+|{\d+}|{\d+,\d*})?.*""".r
-		val nonSpace = """(\\S)(*|?|+|{\d+}|{\d+,\d*})?.*""".r
-		val other = """.*(*|?|+|{\d+}|{\d+,\d*})?.*""".r
+	
+	def cutRegEx(regEx: String): List[String] = {
+		val digit = """(\\d)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})?(.*)""".r
+		val nonDigit = """(\\D)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})?(.*)""".r
+		val word = """(\\w)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})?(.*)""".r
+		val nonWord = """(\\W)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})?(.*)""".r
+		val space = """(\\s)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})?(.*)""".r
+		val nonSpace = """(\\S)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})?(.*)""".r
+		val everyThing = """(\.)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})?(.*)""".r
+		// Everything until a number or a digit, non digit ....
+		val otherWithAmount = """(\w*\W*)(\?|\*|\+)(.*)""".r
+		
+		
 		regEx match {
-			case digit(v1, v2) => 
-			case nonDigit(v1, v2) =>
-			case word(v1, v2) => 
-			case nonWord(v1, v2) =>
-			case space(v1, v2) => 
-			case nonSpace(v1, v2) =>
-			case other(v1, v2) =>
-			case _ =>
+			case digit(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
+			case nonDigit(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
+			case word(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
+			case nonWord(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
+			case space(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
+			case nonSpace(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
+			case otherWithAmount(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
+			case everyThing(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
+			case _ => Nil
 		}
 	}
 	
-	/**
-	 * when tui is used
-	 * */
-	def usingTui() = {
-		var run = true
-		
-		while(run) {
-			val reg = ":r (.*)".r
-			val str = ":s (.*)".r
-			val digit = """(\\d)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})?.*""".r
-			var input = tui.readInput()
-			tui.writeOutput(input)
-			input match {
-				case ":quit" => run = false
-				case reg(v) => modelBase.regEx = v		// Save regex in model
-				case str(v) => modelBase.toMatch = v 	// Save string in model
-				case ":a" => tui.writeOutput(if(checkWholeExpression(modelBase.regEx, modelBase.toMatch)) "matched" else "not matched") 
-				case ":s" => checkExpStep(modelBase.expression1, modelBase.toMatch)
-				case digit(v, v2) => println(v + " " +v2)
-				case _ => 
-			}
-			
-		}
-	}
-
 }

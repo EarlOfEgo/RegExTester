@@ -29,7 +29,24 @@ class RegExTui {
 	/**
 	 * Reads the input
 	 * */
-	def readInput() = readLine("\033[5mRET: ")
+	def readInput() = {
+		var run = true
+		
+		while(run) {
+			val reg = ":r (.*)".r
+			val str = ":s (.*)".r
+			var input = readLine
+			input match {
+				case ":quit" => run = false
+				case reg(v) =>
+				case str(v) => 
+				case ":a" => 
+				case ":s" => 
+				case _ => 
+			}
+			
+		}
+	}
 	
 	def printMenu() = {
 		println("******REGEXTESTER******")
