@@ -19,7 +19,17 @@
  */
 package com.regextester
 
-class RegExTui {
+class RegExTui(rec : RegExController) extends RegExView {
+	
+	/**
+	 * variable for manipulating the input sequence
+	 */
+	var run = true
+	
+	/**
+	 * introducing view with controller and vice versa
+	 */
+	init(rec)
 	
 	/**
 	 * Writes the output... yeah!!!
@@ -30,27 +40,27 @@ class RegExTui {
 	 * Reads the input
 	 * */
 	def readInput() = {
-		var run = true
 		
 		while(run) {
-			val reg = ":r (.*)".r
-			val str = ":s (.*)".r
-			var input = readLine
-			input match {
-				case ":quit" => run = false
-				case reg(v) =>
-				case str(v) => 
-				case ":a" => 
-				case ":s" => 
-				case _ => 
-			}
-			
+			rec_ inputChange(readLine)
 		}
 	}
 	
+	/**
+	 * prints the initial text in the prompt
+	 */
 	def printMenu() = {
 		println("******REGEXTESTER******")
 		println("type :help for information and :quit for exiting the super RegExTesters")
 	}
 	
+	/**
+	 * method for indicating changes on the view
+	 */
+	def update = writeOutput("update...")
+	
+	/**
+	 * method for setting the run variable
+	 */
+	def setRun(b : Boolean) = run = b
 }
