@@ -18,6 +18,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 package com.regextester
+import scala.util.matching.Regex
 
 class RegExModelBase {
 	
@@ -35,16 +36,36 @@ class RegExModelBase {
 	}
 	
 	/**
-	 * Checks the RegEx
+	 * Checks one regex with a string
 	 * */
 	def checkExpStep(regEx: String, toMatch: String) = {
-			  
+	
+		var matched = false
+		var toCheck = ""
+		var found = ""
+		toMatch.foreach(char =>{
+			toCheck += char
+			if(toCheck.matches(regEx)){
+				found += char
+			}
+			
+		})
+		found
 	}
 	
 	/**
 	 * Checks whole expression with whole string
 	 * */
+	var matchedRegExes = List()
 	def checkWholeExpression(regEx: String, toMatch: String) = {
+		var a = cutRegEx(regEx)
+		var toCheck = toMatch
+		cutRegEx(regEx).foreach(a => {
+			var found = checkExpStep(a, toCheck)
+			toCheck = toCheck replace(found, "")
+			//(regEx, found) :: matchedRegExes
+			println(a + " matched with: " + found)
+		})
 		true	  
 	}
 	
@@ -80,14 +101,14 @@ class RegExModelBase {
 		
 		
 		regEx match {
-			case digit(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
-			case nonDigit(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
-			case word(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
-			case nonWord(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
-			case space(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
-			case nonSpace(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
-			case otherWithAmount(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
-			case everyThing(v1, v2, v3) => (v1 + v2).toString() +: cutRegEx(v3)
+			case digit(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
+			case nonDigit(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
+			case word(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
+			case nonWord(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
+			case space(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
+			case nonSpace(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
+			case otherWithAmount(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
+			case everyThing(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
 			case _ => Nil
 		}
 	}
