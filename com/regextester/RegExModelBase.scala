@@ -30,6 +30,10 @@ class RegExModelBase {
 	
 	//var resultList
 	
+	/**
+	 * introducing model with controller and vice versa
+	 */
+	init(rec)
 	
 	def fillList() = {
 	  
