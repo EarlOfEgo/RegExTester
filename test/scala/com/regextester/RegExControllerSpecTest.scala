@@ -16,7 +16,7 @@ class RegExControllerSpecTest extends Specification {
 				base.rec_ mustEqual c
 			}
 			
-			"... and have a reference to the RegExModelBase" in {
+			"... and has a reference to the RegExModelBase" in {
 				c.remba mustEqual base
 			}
 		}
@@ -28,18 +28,22 @@ class RegExControllerSpecTest extends Specification {
 				tui.rec_ mustEqual c
 			}
 			
-			"... and have a reference to the RegExTui" in {
-				c.views.exists(t => t == tui)
-			}
-		
-			"... and be able to add RegExTui to its internal view list" in {
-				c addView tui
+			"... and has a reference to the RegExTui" in {
 				c.views.exists(t => t == tui) must beTrue
 			}
+			
+			" ... and is able to deal with another RegExTui by ... " in {
+				var newTui = new RegExTui(c)
+				
+				"... adding it to its internal view list ..." in {
+					c addView newTui
+					c.views.exists(t => t == newTui) must beTrue
+				}
 		
-			"... and be able to remove RegExTui to its internal view list" in {
-				c removeView tui
-				c.views.exists(t => t == tui) must beFalse
+				"... and removing it from this list again" in {
+					c removeView newTui
+					c.views.exists(t => t == newTui) must beFalse
+				}
 			}
 		}
 	}
