@@ -1,10 +1,7 @@
-package scala.test
+package com.regextester
 
 import org.specs2.mutable._
-import com.regextester.RegExController
-import com.regextester.RegExModelBase
 
-//import main.scala.com.regextester.RegExModelBase
 
 class RegExModelBaseSpecTest extends Specification {
 	val controller = new RegExController
@@ -21,24 +18,61 @@ class RegExModelBaseSpecTest extends Specification {
 			model must not beNull
 		}
 		
-		"cuts a regex right" in {
+		/*
+		 * For testing the function cutRegEx
+		 */
+		"cut a regex right" in {
 			val a = List("\\w*", "\\d?", "\\s+")
-			model.cutRegEx("\\w*\\d?\\s+") must beEqualTo (a)
+			model cutRegEx("\\w*\\d?\\s+") must beEqualTo (a)
 		}
 		
-		"cuts a regex right again" in {
+		"cut a regex right again" in {
 			val a = List("\\w*", "Hello?", "World+")
-			model.cutRegEx("\\w*Hello?World+") must beEqualTo (a)
+			model cutRegEx("\\w*Hello?World+") must beEqualTo (a)
 		}
 		
-		"cuts a regex with digits" in {
+		"cut a regex right with digits" in {
 			val a = List("\\w{0,1}", "\\w{1}", "\\w{1,}")
-			model.cutRegEx("\\w{0,1}\\w{1}\\w{1,}") must beEqualTo (a)
+			model cutRegEx("\\w{0,1}\\w{1}\\w{1,}") must beEqualTo (a)
 		}
 		
-		"cuts a regex without any identifier" in {
+		"cut a regex right without any identifier" in {
 			val a = List("Hi?", "My*", "Name+", "iS{1}")
-			model.cutRegEx("Hi?My*Name+iS{1}") must beEqualTo (a)
+			model cutRegEx("Hi?My*Name+iS{1}") must beEqualTo (a)
+		}
+		
+		"cut a regex right with brackets" in {
+			val a = List("[a-z]?", "\\w*", "[Hallo]{1}")
+			model cutRegEx("[a-z]?\\w*[Hallo]{1}") must beEqualTo (a)
+		}
+		
+		
+		/*
+		 * For testing the function getFirstMatched
+		 */
+		"check one regex with a string right" in {
+			model getFirstMatched("\\w*", "Hallo") must beEqualTo ("Hallo")
+			model getFirstMatched("\\w?", "Hallo") must beEqualTo("H")
+			model getFirstMatched("\\w+", "Hallo") must beEqualTo("Hallo")
+			model getFirstMatched("\\w{1}", "Hallo") must beEqualTo("H")
+			model getFirstMatched("\\w{2,4}", "Hallo") must beEqualTo("Hall")
+			model getFirstMatched("\\w{1,}", "Hallo") must beEqualTo("Hallo")
+			model getFirstMatched("\\d*", "Hallo123") must beEqualTo("")
+			model getFirstMatched("\\d*","42isTheAnswer") must beEqualTo("42")
+			model getFirstMatched("\\d{2}", "42isTheAnswer") must beEqualTo("42")
+			model getFirstMatched("[0-4]{2}", "42isTheAnswer") must beEqualTo("42")
+		}
+		
+		/*
+		 * For testing the function checkWholeExpression
+		 */
+		
+		"check a string with a whole regex" in {
+			model checkWholeExpression("\\w*","Hallo") must beEqualTo(List(("\\w*", "Hallo")))
+			model checkWholeExpression("\\d*\\w*","42isTheAnswer") must beEqualTo(List(("\\d*", "42"),("\\w*","isTheAnswer")))
+			model checkWholeExpression("\\d+\\w{2}\\w*", "42isTheAnswer") must beEqualTo(List(("\\d+", "42"),("\\w{2}", "is"), ("\\w*", "TheAnswer")))
+			model checkWholeExpression("\\D{2}\\w*", "43isTheAnswer") must beEqualTo(List(("\\D{2}",""), ("\\w*","")))
+			
 		}
 	}
 }

@@ -20,39 +20,27 @@
 package com.regextester
 import scala.util.matching.Regex
 
-class RegExModelBase {
+class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 	
-	var regEx = ""
-	var toMatch = ""
-	var expression1 = ""
-	var expression2 = ""
-	var regExList: List[String] = Nil
-	
-	//var resultList
+
 	
 	/**
 	 * introducing model with controller and vice versa
 	 */
 	init(rec)
-	
-	def fillList() = {
-	  
-	}
+
 	
 	/**
 	 * Checks one regex with a string
 	 * */
-	def checkExpStep(regEx: String, toMatch: String) = {
-	
-		var matched = false
+	def getFirstMatched(regEx: String, toMatch: String) = {
 		var toCheck = ""
 		var found = ""
 		toMatch.foreach(char =>{
 			toCheck += char
 			if(toCheck.matches(regEx)){
-				found += char
-			}
-			
+				found = found replace(found, toCheck)
+			}	
 		})
 		found
 	}
@@ -60,33 +48,21 @@ class RegExModelBase {
 	/**
 	 * Checks whole expression with whole string
 	 * */
-	var matchedRegExes = List()
 	def checkWholeExpression(regEx: String, toMatch: String) = {
-		var a = cutRegEx(regEx)
+		var matchedRegExes = List(("",""))
 		var toCheck = toMatch
-		cutRegEx(regEx).foreach(a => {
-			var found = checkExpStep(a, toCheck)
-			toCheck = toCheck replace(found, "")
-			//(regEx, found) :: matchedRegExes
-			println(a + " matched with: " + found)
+		var matches = true
+		var found = ""
+		cutRegEx(regEx).foreach(singleRegEx => {
+			if(matches == true) { //When one regex doesn't  match, there is no need for checking the remaining regexes
+				found = getFirstMatched(singleRegEx, toCheck)
+				if(found == "") matches = false
+				toCheck = toCheck replace(found, "")
+			}
+			matchedRegExes = matchedRegExes :+ (singleRegEx, found)
 		})
-		true	  
-	}
-	
-	/**
-	 * Cuts the string into pieces
-	 * */
-	def cutString(statement: String) = {
-	  
-	}
-	
-	/**
-	 * Saves the result in an external file
-	 **/
-	def saveResult() = {
-	  
-	}
-	
+		matchedRegExes.filter(s => s._1.size > 0) //return just tuples with regexes
+	}	
 	
 	/**
 	 * Cuts the regex into pieces and insert them into a list with super funky recursion stuff
@@ -101,7 +77,7 @@ class RegExModelBase {
 		val nonSpace = """(\\S)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})?(.*)""".r
 		val everyThing = """(\.)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})?(.*)""".r
 		// Everything until a number or a digit, non digit ....
-		val otherWithAmount = """(\w*\W*)(\?|\*|\+)(.*)""".r
+		val otherWithAmount = """(\[?[a-zA-Z0-9-]+\]?)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})(.*)""".r
 		
 		
 		regEx match {
@@ -111,8 +87,8 @@ class RegExModelBase {
 			case nonWord(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
 			case space(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
 			case nonSpace(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
-			case otherWithAmount(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
 			case everyThing(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
+			case otherWithAmount(v1, v2, v3) => v1 + v2 :: cutRegEx(v3)
 			case _ => Nil
 		}
 	}
