@@ -1,11 +1,25 @@
 package com.regextester
 
+import scala.collection.mutable.HashMap
+
 abstract class RegExModelBaseA {
 	
 	/**
 	 * reference to the controller
 	 */
 	var rec_ : RegExController = _
+	
+	/**
+	 * Lists that contain the Regular Expressions and Strings typed in in the prompt
+	 */
+	val matchedReg = new HashMap[Int, String]
+	val matchedStr = new HashMap[Int, String]
+	
+	/**
+	 * for incrementing the key-values in the HashMaps
+	 */
+	var regMapKey = 0
+	var strMapKey = 0
 	
 	/**
 	 * method for introducing model with controller and vice versa
@@ -47,4 +61,14 @@ abstract class RegExModelBaseA {
 		}
 		true
 	}
+	
+	/**
+	 * Checks whole expression with whole string
+	 * */
+	def checkWholeExpression(regEx: String, toMatch: String)
+	
+	/**
+	 * passes the matchedReg- and matchedStr-HashMaps to the controller
+	 */
+	def moveHashMapsToC = rec_.moveHashMapsToV(matchedReg, matchedStr)
 }

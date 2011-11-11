@@ -1,5 +1,7 @@
 package com.regextester
 
+import scala.collection.mutable.HashMap
+
 abstract class RegExView {
 	
 	/**
@@ -24,4 +26,9 @@ abstract class RegExView {
 	 * setRun method stub
 	 */
 	def setRun(b : Boolean)
+	
+	/**
+	 * listContent method stub
+	 */
+	def listContent(matchedReg : HashMap[Int, String], matchedStr : HashMap[Int, String])
 }

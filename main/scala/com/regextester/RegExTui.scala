@@ -19,6 +19,8 @@
  */
 package com.regextester
 
+import scala.collection.mutable.HashMap
+
 class RegExTui(rec : RegExController) extends RegExView {
 	
 	/**
@@ -51,7 +53,7 @@ class RegExTui(rec : RegExController) extends RegExView {
 	 */
 	def printMenu() = {
 		println("******REGEXTESTER******")
-		println("type :help for information and :quit for exiting the super RegExTesters")
+		println("type :help for information and :quit for exiting the super RegExTester")
 	}
 	
 	/**
@@ -63,4 +65,16 @@ class RegExTui(rec : RegExController) extends RegExView {
 	 * method for setting the run variable
 	 */
 	def setRun(b : Boolean) = run = b
+	
+	/**
+	 * creates Strings that represent the content of the matchedReg- and matchedStr-HashMaps and passes them to writeOutput
+	 */
+	def listContent(matchedReg : HashMap[Int, String], matchedStr : HashMap[Int, String]) = {
+		writeOutput("The following Strings are ready to be matched:")
+		matchedStr.foreach(s => writeOutput("-- " + s._2))
+		writeOutput("\n")
+		writeOutput("against the following Regular Expressions:")
+		matchedReg.foreach(r => writeOutput("-- " + r._2))
+		writeOutput("\n")
+	}
 }

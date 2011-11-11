@@ -87,6 +87,19 @@ class RegExModelBaseSpecTest extends Specification {
 			model chooseTheRegExAndString(regexes, strings, indexes) must contain("\\w*\\d*\\s*", "42isTheAnswer").only
 			model chooseTheRegExAndString(regexes, strings, indexes) must not contain("\\d*[a-z]?", "Hallo")
 		}
+		
+		/*
+		 * For testing the function matchString
+		 */
+		"contains the regex that was typed in in the prompt" in {
+			model.matchString(":r \\w{0,1}")
+			model.matchedReg.exists(r => r._2 == "\\w{0,1}") must beTrue
+		}
+		
+		"contains the String that was typed in in the prompt" in {
+			model.matchString(":s aTest")
+			model.matchedStr.exists(r => r._2 == "aTest") must beTrue
+		}
 	}
 }
 

@@ -19,6 +19,7 @@
  */
 package com.regextester
 
+import scala.collection.mutable.HashMap
 
 class RegExController {
 	/**
@@ -61,4 +62,9 @@ class RegExController {
 		val it = views.iterator
 		views.foreach(i => i.setRun(b))
 	}
+	
+	/**
+	 * passes the matchedReg- and matchedStr-HashMaps that are obtained from the model to the view
+	 */
+	def moveHashMapsToV(matchedReg : HashMap[Int, String], matchedStr : HashMap[Int, String]) = views.foreach(i => i.listContent(matchedReg, matchedStr))
 }
