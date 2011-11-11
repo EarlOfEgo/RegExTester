@@ -1,9 +1,11 @@
 package com.regextester
 
 import org.specs2.mutable._
+import scala.collection.mutable.HashMap
 
 
 class RegExModelBaseSpecTest extends Specification {
+	
 	val controller = new RegExController
 	
 	"A RegExController" should {
@@ -66,7 +68,6 @@ class RegExModelBaseSpecTest extends Specification {
 		/*
 		 * For testing the function checkWholeExpression
 		 */
-		
 		"check a string with a whole regex" in {
 			model checkWholeExpression("\\w*","Hallo") must beEqualTo(List(("\\w*", "Hallo")))
 			model checkWholeExpression("\\d*\\w*","42isTheAnswer") must beEqualTo(List(("\\d*", "42"),("\\w*","isTheAnswer")))
@@ -74,5 +75,18 @@ class RegExModelBaseSpecTest extends Specification {
 			model checkWholeExpression("\\D{2}\\w*", "43isTheAnswer") must beEqualTo(List(("\\D{2}",""), ("\\w*","")))
 			
 		}
+		
+		"check if the right regex and string is chosen" in {
+			val regexes = new HashMap[Int, String]
+			val strings = new HashMap[Int, String]
+			val indexes = new Tuple2(1,2)
+			regexes += 1 -> "\\w*\\d*\\s*"
+			regexes += 2 -> "\\d*[a-z]?"
+			strings += 1 -> "Hallo"
+			strings += 2 -> "42isTheAnswer"
+			model chooseTheRegExAndString(regexes, strings, indexes) must contain("\\w*\\d*\\s*", "42isTheAnswer").only
+			model chooseTheRegExAndString(regexes, strings, indexes) must not contain("\\d*[a-z]?", "Hallo")
+		}
 	}
 }
+

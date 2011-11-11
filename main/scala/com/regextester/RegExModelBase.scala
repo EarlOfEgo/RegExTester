@@ -19,6 +19,7 @@
  */
 package com.regextester
 import scala.util.matching.Regex
+import scala.collection.mutable.HashMap
 
 class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 	
@@ -29,6 +30,12 @@ class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 	 */
 	init(rec)
 
+	/**
+	 * Picks the regex and string which the user has chosen
+	 */
+	def chooseTheRegExAndString(regexes: HashMap[Int, String], strings: HashMap[Int, String], indexs: Tuple2[Int, Int]):List[String] = {
+		List(regexes.get(indexs._1).get, strings.get(indexs._2).get)
+	}
 	
 	/**
 	 * Checks one regex with a string
@@ -67,7 +74,6 @@ class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 	/**
 	 * Cuts the regex into pieces and insert them into a list with super funky recursion stuff
 	 * */
-	
 	def cutRegEx(regEx: String): List[String] = {
 		val digit = """(\\d)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})?(.*)""".r
 		val nonDigit = """(\\D)(\*|\?|\+|\{\d+\}|\{\d+,\d*\})?(.*)""".r
