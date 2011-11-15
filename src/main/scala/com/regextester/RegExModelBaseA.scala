@@ -53,19 +53,15 @@ abstract class RegExModelBaseA {
 		
 		s match {
 			case ":quit" => rec_ invokeSetRun(false)
-			case reg(v) =>
-			case str(v) => 
+			case reg(v) => matchedReg += regMapKey -> v; regMapKey += 1
+			case str(v) => matchedStr += strMapKey -> v; strMapKey += 1
+			case ":l" => moveHashMapsToC
 			case ":a" => 
 			case ":s" => 
 			case _ => rec_ notifyViews
 		}
 		true
 	}
-	
-	/**
-	 * Checks whole expression with whole string
-	 * */
-	def checkWholeExpression(regEx: String, toMatch: String)
 	
 	/**
 	 * passes the matchedReg- and matchedStr-HashMaps to the controller
