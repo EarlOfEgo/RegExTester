@@ -20,7 +20,7 @@ abstract class RegExView {
 	/**
 	 * update method stub
 	 */
-	def update
+	def update(s: String)
 	
 	/**
 	 * setRun method stub
@@ -31,4 +31,14 @@ abstract class RegExView {
 	 * listContent method stub
 	 */
 	def listContent(matchedReg : HashMap[Int, String], matchedStr : HashMap[Int, String])
+	
+	/**
+	 * printHelpScreen method stub
+	 */
+	def printHelpScreen
+		
+	/**
+	 * printMatches method stub
+	 */
+	def printMatches(s : String)
 }

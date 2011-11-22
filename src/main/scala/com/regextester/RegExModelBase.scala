@@ -20,15 +20,118 @@
 package com.regextester
 import scala.util.matching.Regex
 import scala.collection.mutable.HashMap
+import java.io._
+import scala.io.Source
 
 class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 	
-
+	/**
+	 * reference to the controller
+	 */
+	var rec_ : RegExController = _
+	
+	/**
+	 * HashMaps that contain the Regular Expressions and Strings typed in in the prompt
+	 */
+	val matchedReg = new HashMap[Int, String]
+	val matchedStr = new HashMap[Int, String]
+	
+	/**
+	 * List of Tuples that contains the matched Strings and Regular Expressions.
+	 * Needed for saving the matches in a external File.
+	 */
+	var matchedPairs = List(("",""))
+	
+	/**
+	 * for incrementing the key-values in the HashMaps
+	 */
+	var regMapKey = 1
+	var strMapKey = 1
+	
+	/**
+	 * method for introducing model with controller and vice versa
+	 */
+	def init(rec : RegExController) = {
+		rec_ = rec
+		rec remb = this
+	}
 	
 	/**
 	 * introducing model with controller and vice versa
 	 */
 	init(rec)
+	
+	/**
+	 * invoke method with same name on the controller
+	 */
+	def addView(rev : RegExView) : Unit = rec_ addView(rev)
+	
+	/**
+	 * invoke method with same name on the controller
+	 */
+	def removeView(rev : RegExView) : Unit = rec_ removeView(rev)
+	
+	/**
+	 * invoke method notifyViews on tmatchedPairs = he controller
+	 */
+	def notifyC(s: String) : Unit = rec_ notifyViews(s)
+	
+	/**
+	 * invoke method invokeSetRun on the controller
+	 */
+	def quitInvoke : Unit = rec_ invokeSetRun false
+	
+	/**
+	 * invoke method invokeHelpScreen on the controller
+	 */
+	def helpInvoke : Unit = rec_ invokeHelpScreen
+	
+	/**
+	 * delegates a single line of the opened file as String to the controller
+	 */
+	def sendMatchesFromFileToC(s : String) = rec_ sendMatchesFromCToV(s)
+	
+	/**
+	 * match and with the input String
+	 */
+	def matchString(s : String) = {
+		val reg = ":r (.*)".r
+		val str = ":s (.*)".r
+		val check = ":c (\\d{1}) (\\d{1})".r
+		
+		s match {
+			case reg(v) => matchedReg += regMapKey -> v; regMapKey += 1
+			case str(v) => matchedStr += strMapKey -> v; strMapKey += 1
+			case ":l" => moveHashMapsToC
+			case check(v1, v2) => matchPairByIdx(v1.toInt, v2.toInt)
+			case ":m" => loadMatches
+			case ":quit" => quitInvoke
+			case ":q" => quitInvoke
+			case ":exit" => quitInvoke
+			case ":help" => helpInvoke
+			case _ => notifyC("Invalid input! Type :help for a list of available commands.")
+		}
+		true
+	}
+	
+	/**
+	 * passes the matchedReg- and matchedStr-HashMaps to the controller
+	 */
+	def moveHashMapsToC = rec_.moveHashMapsToV(matchedReg, matchedStr)
+	
+	/**
+	 * in relation to the index, a corresponding value is passed to the method checkWholeExpression
+	 */
+	def matchPairByIdx(str: Int, reg: Int) = {
+		if(checkWholeExpression(matchedReg(reg), matchedStr(str)).exists(m => m._2.size == 0)) {
+			notifyC("Sorry, the given string-regex pair doesn't match!")
+			false
+		}
+		else {
+			notifyC("Success! The string-regex pair has matched!")
+			true
+		}
+	}
 
 	/**
 	 * Picks the regex and string which the user has chosen
@@ -68,6 +171,7 @@ class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 			}
 			matchedRegExes = matchedRegExes :+ (singleRegEx, found)
 		})
+		saveMatches(matchedRegExes.filter(s => s._2.size > 0))
 		matchedRegExes.filter(s => s._1.size > 0) //return just tuples with regexes
 	}	
 	
@@ -98,5 +202,27 @@ class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 			case _ => Nil
 		}
 	}
-  
+	
+	/**
+	 * saves all matched string-regex pairs in a external file
+	 */
+	def saveMatches(matches : List[(String, String)]) = {
+		val out = new BufferedWriter(
+				new OutputStreamWriter(
+						new FileOutputStream("matches.txt", true)))
+		try {
+			matches.foreach(m => out.write(m._1 + " -> " + m._2 + "\n"))
+			out newLine
+		} finally {
+			out close
+		}
+	}
+	
+	/**
+	 * opens the file that includes the matched string-regex pairs
+	 */
+	def loadMatches = {
+		val s = Source.fromFile("matches.txt")
+		s.getLines().foreach(line => if(line != "") sendMatchesFromFileToC(line))
+	}
 }

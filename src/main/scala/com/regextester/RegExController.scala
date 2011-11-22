@@ -25,7 +25,7 @@ class RegExController {
 	/**
 	 * reference to the model
 	 */
-	var remba : RegExModelBaseA = _
+	var remb : RegExModelBase = _
 	
 	/**
 	 * list that includes all registered views
@@ -45,26 +45,30 @@ class RegExController {
 	/**
 	 * method that notifies every registered view in the list
 	 */
-	def notifyViews : Unit = {
-		val it = views.iterator
-		views.foreach(i => i.update)
-	}
+	def notifyViews(s: String) : Unit = views.foreach(i => i.update(s))
 	
 	/**
 	 * method that redirects incoming inputs from a view to the model
 	 */
-	def inputChange(s : String) = remba matchString(s)
+	def inputChange(s : String) = remb matchString(s)
 	
 	/**
 	 * method that invokes corresponding method on the view side
 	 */
-	def invokeSetRun(b : Boolean) = {
-		val it = views.iterator
-		views.foreach(i => i.setRun(b))
-	}
+	def invokeSetRun(b : Boolean) = views.foreach(i => i.setRun(b))
 	
 	/**
 	 * passes the matchedReg- and matchedStr-HashMaps that are obtained from the model to the view
 	 */
 	def moveHashMapsToV(matchedReg : HashMap[Int, String], matchedStr : HashMap[Int, String]) = views.foreach(i => i.listContent(matchedReg, matchedStr))
+	
+	/**
+	 * method that invokes the printHelpScreen-method on all registered views
+	 */
+	def invokeHelpScreen : Unit = views.foreach(i => i.printHelpScreen)
+	
+	/**
+	 * delegates the passed String to the view
+	 */
+	def sendMatchesFromCToV(s : String) : Unit = views.foreach(i => i.printMatches(s))
 }
