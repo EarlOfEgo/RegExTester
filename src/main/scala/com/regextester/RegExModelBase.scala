@@ -22,8 +22,9 @@ import scala.util.matching.Regex
 import scala.collection.mutable.HashMap
 import java.io._
 import scala.io.Source
+import scala.io.BufferedSource
 
-class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
+class RegExModelBase(rec: RegExController) {
 	
 	/**
 	 * reference to the controller
@@ -31,22 +32,15 @@ class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 	var rec_ : RegExController = _
 	
 	/**
-	 * HashMaps that contain the Regular Expressions and Strings typed in in the prompt
+	 * Lists that contain the Regular Expressions and Strings typed in in the prompt
 	 */
-	val matchedReg = new HashMap[Int, String]
-	val matchedStr = new HashMap[Int, String]
+	var matchedReg : List[String] = Nil
+	var matchedStr : List[String] = Nil
 	
 	/**
-	 * List of Tuples that contains the matched Strings and Regular Expressions.
-	 * Needed for saving the matches in a external File.
+	 * List of Tuple2[String, String]-elements that holds the regex-string pairs from the "matches.txt"-file
 	 */
-	var matchedPairs = List(("",""))
-	
-	/**
-	 * for incrementing the key-values in the HashMaps
-	 */
-	var regMapKey = 1
-	var strMapKey = 1
+	var linesFromMatchesTxtList = List(("",""))
 	
 	/**
 	 * method for introducing model with controller and vice versa
@@ -100,30 +94,31 @@ class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 		val check = ":c (\\d{1}) (\\d{1})".r
 		
 		s match {
-			case reg(v) => matchedReg += regMapKey -> v; regMapKey += 1
-			case str(v) => matchedStr += strMapKey -> v; strMapKey += 1
-			case ":l" => moveHashMapsToC
+			case reg(v) => if(matchedReg.exists(r => r == v)) notifyC("RegEx was already typed in!") else matchedReg = matchedReg :+ v
+			case str(v) => if(matchedStr.exists(s => s == v)) notifyC("String was already typed in!") else matchedStr = matchedStr :+ v
+			case ":l" => moveListsToC
 			case check(v1, v2) => matchPairByIdx(v1.toInt, v2.toInt)
 			case ":m" => loadMatches
 			case ":quit" => quitInvoke
 			case ":q" => quitInvoke
 			case ":exit" => quitInvoke
 			case ":help" => helpInvoke
-			case _ => notifyC("Invalid input! Type :help for a list of available commands.")
+			case ":h" => helpInvoke
+			case _ => notifyC("Invalid input! Type :help or :h for a list of available commands.")
 		}
 		true
 	}
 	
 	/**
-	 * passes the matchedReg- and matchedStr-HashMaps to the controller
+	 * passes the matchedReg- and matchedStr-Lists to the controller
 	 */
-	def moveHashMapsToC = rec_.moveHashMapsToV(matchedReg, matchedStr)
+	def moveListsToC = rec_ moveListsToV(matchedReg, matchedStr)
 	
 	/**
 	 * in relation to the index, a corresponding value is passed to the method checkWholeExpression
 	 */
 	def matchPairByIdx(str: Int, reg: Int) = {
-		if(checkWholeExpression(matchedReg(reg), matchedStr(str)).exists(m => m._2.size == 0)) {
+		if(checkWholeExpression(matchedReg(reg-1), matchedStr(str-1)).exists(m => m._2.size == 0)) {
 			notifyC("Sorry, the given string-regex pair doesn't match!")
 			false
 		}
@@ -159,7 +154,7 @@ class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 	 * Checks whole expression with whole string
 	 * */
 	def checkWholeExpression(regEx: String, toMatch: String) = {
-		var matchedRegExes = List(("",""))
+		var matchedRegExes = List[(String, String)]()
 		var toCheck = toMatch
 		var matches = true
 		var found = ""
@@ -167,7 +162,7 @@ class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 			if(matches == true) { //When one regex doesn't  match, there is no need for checking the remaining regexes
 				found = getFirstMatched(singleRegEx, toCheck)
 				if(found == "") matches = false
-				toCheck = toCheck replace(found, "")
+				toCheck = toCheck replaceFirst(found, "")
 			}
 			matchedRegExes = matchedRegExes :+ (singleRegEx, found)
 		})
@@ -211,8 +206,12 @@ class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 				new OutputStreamWriter(
 						new FileOutputStream("matches.txt", true)))
 		try {
-			matches.foreach(m => out.write(m._1 + " -> " + m._2 + "\n"))
-			out newLine
+			loadLinesFromMatchesTxt
+			matches.foreach(m => {
+				if(!(linesFromMatchesTxtList.exists(pair => pair == m))){
+					out.write(m._1 + " -> " + m._2 + "\n")
+				}
+			})
 		} finally {
 			out close
 		}
@@ -222,7 +221,31 @@ class RegExModelBase(rec: RegExController) extends RegExModelBaseA{
 	 * opens the file that includes the matched string-regex pairs
 	 */
 	def loadMatches = {
-		val s = Source.fromFile("matches.txt")
-		s.getLines().foreach(line => if(line != "") sendMatchesFromFileToC(line))
+		val f = new File("matches.txt")
+		var s : BufferedSource = null
+		if(!f.exists) {
+			f.createNewFile
+			notifyC("Sorry, no previous string-regex pairs found!")
+		}
+		else {
+			s = Source.fromFile("matches.txt")
+			if(s.isEmpty) notifyC("Sorry, no previous string-regex pairs found!")
+			else {
+				notifyC("The following string-regex pairs have matched already:")
+				s.getLines.foreach(line => if(line != "") sendMatchesFromFileToC(line))
+			}
+		}
+	}
+	
+	/**
+	 * opens the "matches.txt"-file and loads the single lines, separated into pairs of regexes and Strings, into the linesFromMatchesTxtList
+	 */
+	def loadLinesFromMatchesTxt = {
+		val secondSource = Source.fromFile("matches.txt")
+		val separateLine = """(.+)\s->\s(.+)""".r
+		secondSource.getLines().foreach(line => line match {
+			case separateLine(r, s) => linesFromMatchesTxtList = linesFromMatchesTxtList :+ (r, s)
+			case _ => 
+		})
 	}
 }

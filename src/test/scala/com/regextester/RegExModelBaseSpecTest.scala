@@ -89,28 +89,29 @@ class RegExModelBaseSpecTest extends Specification {
 		/*
 		 * For testing the function matchString
 		 */
-		"contains the regex that was typed in in the prompt" in {
+		"contain the regex that was typed in in the prompt" in {
 			model.matchString(":r \\w{0,1}")
-			model.matchedReg.exists {
-				case (index, value) => value == "\\w{0,1}"
-			} must beTrue
+			model.matchedReg.exists(element => element == "\\w{0,1}") must beTrue
 		}
 
-		"contains the String that was typed in in the prompt" in {
+		"contain the String that was typed in in the prompt" in {
 			model.matchString(":s aTest")
-			model.matchedStr.exists {
-				case (index, value) => value == "aTest"
-			} must beTrue
+			model.matchedStr.exists(element => element == "aTest") must beTrue
 		}
 
-		"check whether a string and a regex match by their HashMap-indices" in {
-			model.matchedStr += 1 -> "Hello"
-			model.matchedReg += 1 -> "\\w*"
+		/*
+		 * For testing the function matchPairByIdx
+		 */
+		"check whether a string and a regex match by their List-indices" in {
+			model.matchedStr = model.matchedStr.drop(model.matchedStr.length)
+			model.matchedReg = model.matchedReg.drop(model.matchedReg.length)
+			model.matchedStr = model.matchedStr :+ "Hello"
+			model.matchedReg = model.matchedReg :+ "\\w*"
 			model.matchPairByIdx(1, 1) must beTrue
 		}
 
 		"check whether a string and a not corresponding regex doesn't match" in {
-			model.matchedReg += 2 -> "\\d*"
+			model.matchedReg = model.matchedReg :+ "\\d*"
 			model.matchPairByIdx(1, 2) must beFalse
 		}
 	}

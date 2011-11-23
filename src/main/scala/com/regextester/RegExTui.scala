@@ -44,7 +44,7 @@ class RegExTui(rec : RegExController) extends RegExView {
 	def readInput() = {
 		
 		while(run) {
-			rec_ inputChange(readLine)
+			rec_ inputChange(readLine("REGEXTESTER: "))
 		}
 	}
 	
@@ -67,14 +67,30 @@ class RegExTui(rec : RegExController) extends RegExView {
 	def setRun(b : Boolean) = run = b
 	
 	/**
-	 * creates Strings that represent the content of the matchedReg- and matchedStr-HashMaps and passes them to writeOutput
+	 * creates Strings that represent the content of the matchedReg- and matchedStr-Lists and passes them to writeOutput
 	 */
-	def listContent(matchedReg : HashMap[Int, String], matchedStr : HashMap[Int, String]) = {
+	def listContent(matchedReg : List[String], matchedStr : List[String]) = {
+		var idxStr = 1
+		var idxReg = 1
 		writeOutput("The following Strings are ready to be matched:")
-		if(matchedStr.size > 0) matchedStr.foreach(s => writeOutput(s._1+ ": " + s._2)) else writeOutput("Presently no Strings were typed in yet...")
+		if(matchedStr.size > 0) {
+			matchedStr.foreach(s => {
+				writeOutput(idxStr + ": " + s)
+				idxStr = idxStr + 1 
+			})
+		}
+		else writeOutput("Presently no Strings were typed in yet...")
+		
 		writeOutput("")
 		writeOutput("against the following Regular Expressions:")
-		if(matchedReg.size > 0) matchedReg.foreach(r => writeOutput(r._1+ ": " + r._2)) else writeOutput("Presently no Regular Expressions were typed in yet...")
+		
+		if(matchedReg.size > 0) {
+			matchedReg.foreach(r => {
+				writeOutput(idxReg + ": " + r)
+				idxReg = idxReg + 1
+			})
+		}
+		else writeOutput("Presently no Regular Expressions were typed in yet...")
 		writeOutput("")
 	}
 	
@@ -83,7 +99,7 @@ class RegExTui(rec : RegExController) extends RegExView {
 	 */
 	def printHelpScreen = {
 		writeOutput("The following commands are available:\n")
-		writeOutput(":help\t\t\t\tcommand that prints this screen")
+		writeOutput(":help; :h\t\t\tcommands that print this screen")
 		writeOutput(":quit; :q; :exit\t\tfor exiting the regextester")
 		writeOutput(":s (string)\t\t\tadding a String (string) for matching")
 		writeOutput(":r (regex)\t\t\tadding a Regular Expression (regex) for matching")

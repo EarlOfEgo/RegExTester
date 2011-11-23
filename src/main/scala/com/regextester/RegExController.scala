@@ -58,9 +58,9 @@ class RegExController {
 	def invokeSetRun(b : Boolean) = views.foreach(i => i.setRun(b))
 	
 	/**
-	 * passes the matchedReg- and matchedStr-HashMaps that are obtained from the model to the view
+	 * passes the matchedReg- and matchedStr-Lists that are obtained from the model to the view
 	 */
-	def moveHashMapsToV(matchedReg : HashMap[Int, String], matchedStr : HashMap[Int, String]) = views.foreach(i => i.listContent(matchedReg, matchedStr))
+	def moveListsToV(matchedReg : List[String], matchedStr : List[String]) = views.foreach(i => i.listContent(matchedReg, matchedStr))
 	
 	/**
 	 * method that invokes the printHelpScreen-method on all registered views

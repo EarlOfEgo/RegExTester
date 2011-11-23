@@ -30,7 +30,7 @@ abstract class RegExView {
 	/**
 	 * listContent method stub
 	 */
-	def listContent(matchedReg : HashMap[Int, String], matchedStr : HashMap[Int, String])
+	def listContent(matchedReg : List[String], matchedStr : List[String])
 	
 	/**
 	 * printHelpScreen method stub
