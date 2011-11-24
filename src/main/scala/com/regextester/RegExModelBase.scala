@@ -104,7 +104,7 @@ class RegExModelBase(rec: RegExController) {
 			case ":exit" => quitInvoke
 			case ":help" => helpInvoke
 			case ":h" => helpInvoke
-			case _ => notifyC("Invalid input! Type :help or :h for a list of available commands.")
+			case _ => notifyC("\033[31mInvalid input!\033[0m Type :help or :h for a list of available commands.")
 		}
 		true
 	}
@@ -118,14 +118,17 @@ class RegExModelBase(rec: RegExController) {
 	 * in relation to the index, a corresponding value is passed to the method checkWholeExpression
 	 */
 	def matchPairByIdx(str: Int, reg: Int) = {
-		if(checkWholeExpression(matchedReg(reg-1), matchedStr(str-1)).exists(m => m._2.size == 0)) {
-			notifyC("Sorry, the given string-regex pair doesn't match!")
-			false
+		if(str-1 < matchedStr.size && reg-1 < matchedReg.size) {
+			if(checkWholeExpression(matchedReg(reg-1), matchedStr(str-1)).exists(m => m._2.size == 0)) {
+				notifyC("\033[31mSorry\033[0m, the given string-regex pair doesn't match!")
+				false
+			}
+			else {
+				notifyC("\033[32mSuccess!\033[0m The string-regex pair has matched!")
+				true
+			}
 		}
-		else {
-			notifyC("Success! The string-regex pair has matched!")
-			true
-		}
+		else notifyC("\033[31mSorry\033[0m, but the given indeces doesn't exist!")
 	}
 
 	/**

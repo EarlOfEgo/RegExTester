@@ -20,6 +20,7 @@
 package com.regextester
 
 import scala.collection.mutable.HashMap
+import java.text.MessageFormat
 
 class RegExTui(rec : RegExController) extends RegExView {
 	
@@ -52,8 +53,8 @@ class RegExTui(rec : RegExController) extends RegExView {
 	 * prints the initial text in the prompt
 	 */
 	def printMenu() = {
-		println("******REGEXTESTER******")
-		println("type :help for information and :quit for exiting the super RegExTester")
+		println("\033[34m******REGEXTESTER******")
+		println("type :help for information and :quit for exiting the super RegExTester\033[0m")
 	}
 	
 	/**
