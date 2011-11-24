@@ -24,9 +24,11 @@ object RegExTester {
   def main(args: Array[String]): Unit = {
   	var controller = new RegExController()
   	var model = new RegExModelBase(controller)
-  	var view = new RegExTui(controller)
+ /* 	var view = new RegExTui(controller)
   	view.printMenu
-  	view.readInput
+  	view.readInput*/
+  	
+  	var view2 = new RegExGui(controller)
   	
   }
 }

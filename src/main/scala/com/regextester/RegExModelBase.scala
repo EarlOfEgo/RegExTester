@@ -128,7 +128,10 @@ class RegExModelBase(rec: RegExController) {
 				true
 			}
 		}
-		else notifyC("\033[31mSorry\033[0m, but the given indeces doesn't exist!")
+		else {
+			notifyC("\033[31mSorry\033[0m, but the given indeces doesn't exist!")
+			false
+		}
 	}
 
 	/**

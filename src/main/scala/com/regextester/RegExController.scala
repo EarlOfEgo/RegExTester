@@ -20,8 +20,9 @@
 package com.regextester
 
 import scala.collection.mutable.HashMap
+import scala.swing._
 
-class RegExController {
+class RegExController extends Publisher{
 	/**
 	 * reference to the model
 	 */
