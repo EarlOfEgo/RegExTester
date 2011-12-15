@@ -20,7 +20,7 @@ abstract class RegExView {
 	/**
 	 * update method stub
 	 */
-	def update(s: String)
+	def update(s: String)(color: String)
 	
 	/**
 	 * setRun method stub

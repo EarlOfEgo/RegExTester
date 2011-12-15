@@ -20,7 +20,9 @@
 package com.regextester
 
 import scala.collection.mutable.HashMap
-import java.text.MessageFormat
+import scala.Console._
+import java.io._
+import scala.Console
 
 class RegExTui(rec : RegExController) extends RegExView {
 	
@@ -30,14 +32,19 @@ class RegExTui(rec : RegExController) extends RegExView {
 	var run = true
 	
 	/**
+	 * by default the output to the console isn't colored
+	 */
+	implicit val defaultColor = RESET
+	
+	/**
 	 * introducing view with controller and vice versa
 	 */
 	init(rec)
 	
 	/**
-	 * Writes the output... yeah!!!
+	 * writes the output, if desired in a colored context
 	 * */
-	def writeOutput(output: String) = println(output)
+	def writeOutput(output: String)(implicit color: String) = println(color + output + RESET)
 	
 	/**
 	 * Reads the input
@@ -45,7 +52,7 @@ class RegExTui(rec : RegExController) extends RegExView {
 	def readInput() = {
 		
 		while(run) {
-			rec_ inputChange(readLine("REGEXTESTER: "))
+			rec_ inputChange(readLine("\033[34mREGEXTESTER:\033[0m "))
 		}
 	}
 	
@@ -53,14 +60,14 @@ class RegExTui(rec : RegExController) extends RegExView {
 	 * prints the initial text in the prompt
 	 */
 	def printMenu() = {
-		println("\033[34m******REGEXTESTER******")
-		println("type :help for information and :quit for exiting the super RegExTester\033[0m")
+		writeOutput("******REGEXTESTER******")(BLUE)
+		writeOutput("type :help for information and :quit for exiting the super RegExTester")(BLUE)
 	}
 	
 	/**
-	 * method for indicating changes on the view
+	 * method for indicating changes on the view, represented as console output, by delegating its arguments to writeOutput
 	 */
-	def update(s: String) = writeOutput(s)
+	def update(s: String)(color: String) = writeOutput(s)(color)
 	
 	/**
 	 * method for setting the run variable
@@ -80,7 +87,7 @@ class RegExTui(rec : RegExController) extends RegExView {
 				idxStr = idxStr + 1 
 			})
 		}
-		else writeOutput("Presently no Strings were typed in yet...")
+		else writeOutput("Presently no Strings were typed in yet...")(YELLOW)
 		
 		writeOutput("")
 		writeOutput("against the following Regular Expressions:")
@@ -91,7 +98,7 @@ class RegExTui(rec : RegExController) extends RegExView {
 				idxReg = idxReg + 1
 			})
 		}
-		else writeOutput("Presently no Regular Expressions were typed in yet...")
+		else writeOutput("Presently no Regular Expressions were typed in yet...")(YELLOW)
 		writeOutput("")
 	}
 	

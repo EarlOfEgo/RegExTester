@@ -20,9 +20,8 @@
 package com.regextester
 
 import scala.collection.mutable.HashMap
-import scala.swing._
 
-class RegExController extends Publisher{
+class RegExController {
 	/**
 	 * reference to the model
 	 */
@@ -46,7 +45,7 @@ class RegExController extends Publisher{
 	/**
 	 * method that notifies every registered view in the list
 	 */
-	def notifyViews(s: String) : Unit = views.foreach(i => i.update(s))
+	def notifyViews(s: String)(color: String) : Unit = views.foreach(i => i.update(s)(color))
 	
 	/**
 	 * method that redirects incoming inputs from a view to the model

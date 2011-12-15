@@ -23,6 +23,7 @@ import scala.collection.mutable.HashMap
 import java.io._
 import scala.io.Source
 import scala.io.BufferedSource
+import scala.Console._
 
 class RegExModelBase(rec: RegExController) {
 	
@@ -40,7 +41,7 @@ class RegExModelBase(rec: RegExController) {
 	/**
 	 * List of Tuple2[String, String]-elements that holds the regex-string pairs from the "matches.txt"-file
 	 */
-	var linesFromMatchesTxtList = List(("",""))
+	var linesFromMatchesTxtList = List[(String, String)]()
 	
 	/**
 	 * method for introducing model with controller and vice versa
@@ -49,6 +50,11 @@ class RegExModelBase(rec: RegExController) {
 		rec_ = rec
 		rec remb = this
 	}
+	
+	/**
+	 * by default the output to the console isn't colored
+	 */
+	implicit val defaultColor = RESET
 	
 	/**
 	 * introducing model with controller and vice versa
@@ -68,7 +74,7 @@ class RegExModelBase(rec: RegExController) {
 	/**
 	 * invoke method notifyViews on tmatchedPairs = he controller
 	 */
-	def notifyC(s: String) : Unit = rec_ notifyViews(s)
+	def notifyC(s: String)(implicit color: String) : Unit = rec_.notifyViews(s)(color)
 	
 	/**
 	 * invoke method invokeSetRun on the controller
@@ -94,8 +100,8 @@ class RegExModelBase(rec: RegExController) {
 		val check = ":c (\\d{1}) (\\d{1})".r
 		
 		s match {
-			case reg(v) => if(matchedReg.exists(r => r == v)) notifyC("RegEx was already typed in!") else matchedReg = matchedReg :+ v
-			case str(v) => if(matchedStr.exists(s => s == v)) notifyC("String was already typed in!") else matchedStr = matchedStr :+ v
+			case reg(v) => if(matchedReg.exists(r => r == v)) notifyC("RegEx was already typed in!")(YELLOW) else matchedReg = matchedReg :+ v
+			case str(v) => if(matchedStr.exists(s => s == v)) notifyC("String was already typed in!")(YELLOW) else matchedStr = matchedStr :+ v
 			case ":l" => moveListsToC
 			case check(v1, v2) => matchPairByIdx(v1.toInt, v2.toInt)
 			case ":m" => loadMatches
@@ -104,7 +110,10 @@ class RegExModelBase(rec: RegExController) {
 			case ":exit" => quitInvoke
 			case ":help" => helpInvoke
 			case ":h" => helpInvoke
-			case _ => notifyC("\033[31mInvalid input!\033[0m Type :help or :h for a list of available commands.")
+			case _ => {
+				notifyC("Invalid input!")(RED)
+				notifyC("Type :help or :h for a list of available commands.")
+			}
 		}
 		true
 	}
@@ -120,16 +129,19 @@ class RegExModelBase(rec: RegExController) {
 	def matchPairByIdx(str: Int, reg: Int) = {
 		if(str-1 < matchedStr.size && reg-1 < matchedReg.size) {
 			if(checkWholeExpression(matchedReg(reg-1), matchedStr(str-1)).exists(m => m._2.size == 0)) {
-				notifyC("\033[31mSorry\033[0m, the given string-regex pair doesn't match!")
+				notifyC("Error")(RED)
+				notifyC("The given string-regex pair doesn't match!")
 				false
 			}
 			else {
-				notifyC("\033[32mSuccess!\033[0m The string-regex pair has matched!")
+				notifyC("Success!")(GREEN)
+				notifyC("The string-regex pair has matched!")
 				true
 			}
 		}
 		else {
-			notifyC("\033[31mSorry\033[0m, but the given indeces doesn't exist!")
+			notifyC("Error")(RED)
+			notifyC("The given indeces doesn't exist!")
 			false
 		}
 	}
@@ -231,11 +243,15 @@ class RegExModelBase(rec: RegExController) {
 		var s : BufferedSource = null
 		if(!f.exists) {
 			f.createNewFile
-			notifyC("Sorry, no previous string-regex pairs found!")
+			notifyC("Error")(RED)
+			notifyC("No previous string-regex pairs found!")
 		}
 		else {
 			s = Source.fromFile("matches.txt")
-			if(s.isEmpty) notifyC("Sorry, no previous string-regex pairs found!")
+			if(s.isEmpty) {
+				notifyC("Error")(RED)
+				notifyC("No previous string-regex pairs found!")
+			}
 			else {
 				notifyC("The following string-regex pairs have matched already:")
 				s.getLines.foreach(line => if(line != "") sendMatchesFromFileToC(line))
