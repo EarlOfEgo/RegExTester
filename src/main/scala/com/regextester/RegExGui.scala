@@ -25,112 +25,107 @@ import java.awt.GridLayout
 import javax.swing.border.LineBorder
 import scala.collection.mutable._
 
-class RegExGui(controller: RegExController) extends Frame{
-	listenTo(controller)
+class RegExGui(model: RegExModelBase) extends Frame {
+	listenTo(model)
 	title = "RegExTester"
-		
+
 	val width = 640
 	val height = 480
-		
+
 	//FOR TESTING
 	var listStrings = List("")
 	var listRegExes = List("")
-	
-	
+
 	var listViewRegExes = new ListView(listRegExes)
 	var scrollListRegEx = new ScrollPane()
-	
+
 	var listViewStrings = new ListView(listStrings)
 	var scrollListStrings = new ScrollPane()
-	
-	val quitAction = Action("Quit") {System.exit(0)}
+
+	val quitAction = Action("Quit") { System.exit(0) }
 	val aboutAction = Action("About") {}
-	
+
 	val okAction = Action("Ok") {
-		if(stringInput.getInput.size > 0 && regExInput.getInput.size > 0) {
-			listRegExes = regExInput.getInput  :: listRegExes
-			listStrings = stringInput.getInput :: listStrings 
+		if (stringInput.getInput.size > 0 && regExInput.getInput.size > 0) {
+			listRegExes = regExInput.getInput :: listRegExes
+			listStrings = stringInput.getInput :: listStrings
 		}
 	}
-	
-	val okButton = new Button{
-							action = okAction
-						}
-	
+
+	val okButton = new Button { action = okAction }
+
 	var regExInput = new TextField {
-		preferredSize = new Dimension(240,20)
+		preferredSize = new Dimension(240, 20)
 		text = "Enter Your RegEx here"
 		def getInput = text
 	}
-	
+
 	var stringInput = new TextField {
-		preferredSize = new Dimension(240,20)
-    	text = "Enter Your String here"
-    	def getInput = text
-    }
-	
-	var regExToMatch = new TextField {
-		preferredSize = new Dimension(240,20)
+		preferredSize = new Dimension(240, 20)
+		text = "Enter Your String here"
+		def getInput = text
+	}
+
+	val regExToMatch = new TextField {
+		preferredSize = new Dimension(240, 20)
 		editable = false
 	}
-	
-	var stringToMatch = new TextField {
-		preferredSize = new Dimension(240,20)
-    	editable = false
-    }
-		
-	contents = new BoxPanel(Orientation.Vertical){
-	menuBar = new MenuBar{
-		contents += new Menu("File"){
-			contents += new MenuItem(quitAction)
-		}
-		contents += new Menu("RegEx"){
-		}
-		contents += new Menu("History"){
-		}
-		contents += new Menu("Help"){
-			contents += new MenuItem(aboutAction)
-		}
+
+	val stringToMatch = new TextField {
+		preferredSize = new Dimension(240, 20)
+		editable = false
 	}
-		
-		contents += new BoxPanel(Orientation.Horizontal){
+
+	contents = new BoxPanel(Orientation.Vertical) {
+		menuBar = new MenuBar {
+			contents += new Menu("File") {
+				contents += new MenuItem(quitAction)
+			}
+			contents += new Menu("RegEx") {
+			}
+			contents += new Menu("History") {
+			}
+			contents += new Menu("Help") {
+				contents += new MenuItem(aboutAction)
+			}
+		}
+
+		contents += new BoxPanel(Orientation.Horizontal) {
 			border = javax.swing.border.LineBorder.createBlackLineBorder()
-			//LEFT SITE
+			//LEFT SIDE
 			contents += new BoxPanel(Orientation.Vertical) {
 				border = javax.swing.border.LineBorder.createBlackLineBorder()
 				contents += new BoxPanel(Orientation.Vertical) {
-					contents += new FlowPanel{
+					contents += new FlowPanel {
 						contents += new Label("RegEx:    ")
 						contents += regExInput
 					}
-					contents += new FlowPanel{
+					contents += new FlowPanel {
 						contents += new Label("ToMatch:")
 						contents += stringInput
 					}
-					maximumSize = new Dimension(width/2, 100)
+					maximumSize = new Dimension(width / 2, 100)
 				}
-		
+
 				contents += new BorderPanel {
-					add(new FlowPanel{
+					add(new FlowPanel {
 						contents += okButton
-						contents += new Button{				
-							action = Action("Clear Fields"){
+						contents += new Button {
+							action = Action("Clear Fields") {
 								stringInput text = ""
 								regExInput text = ""
 							}
 						}
 					}, BorderPanel.Position.East)
-					maximumSize = new Dimension(width/2, 50)
+					maximumSize = new Dimension(width / 2, 50)
 				}
-			
-				contents += new BoxPanel(Orientation.Horizontal){
-					
-					
+
+				contents += new BoxPanel(Orientation.Horizontal) {
+
 					scrollListRegEx.contents = listViewRegExes
-					
-					
+
 					scrollListStrings.contents = listViewStrings
-					
+
 					contents += scrollListRegEx
 					contents += scrollListStrings
 					listenTo(okButton)
@@ -143,15 +138,15 @@ class RegExGui(controller: RegExController) extends Frame{
 						}
 					}
 				}
-				maximumSize = new Dimension(width/2, height-10)
-				
+				maximumSize = new Dimension(width / 2, height - 10)
+
 			}
-			
-			//RIGHT SITE
+
+			//RIGHT SIDE
 			contents += new BoxPanel(Orientation.Vertical) {
 				border = javax.swing.border.LineBorder.createBlackLineBorder()
 				contents += new BoxPanel(Orientation.Vertical) {
-					contents += new FlowPanel{
+					contents += new FlowPanel {
 						contents += new Label("RegEx:    ")
 						contents += regExToMatch
 						listenTo(listViewRegExes)
@@ -162,45 +157,44 @@ class RegExGui(controller: RegExController) extends Frame{
 							}
 						}
 					}
-					contents += new FlowPanel{
+					contents += new FlowPanel {
 						contents += new Label("ToMatch:")
 						contents += stringToMatch
 					}
-					maximumSize = new Dimension(width/2, 100)
+					maximumSize = new Dimension(width / 2, 100)
 				}
-		
+
 				contents += new BorderPanel {
-					add(new FlowPanel{
-						contents += new Button{
+					add(new FlowPanel {
+						contents += new Button {
 							action = Action("Check") {
-								if(stringInput.getInput.size > 0 && regExInput.getInput.size > 0) {
-									
+								if (stringInput.getInput.size > 0 && regExInput.getInput.size > 0) {
+
 								}
-							}	
+							}
 						}
 					}, BorderPanel.Position.East)
-					maximumSize = new Dimension(width/2, 50)
+					maximumSize = new Dimension(width / 2, 50)
 				}
-							
-				contents += new BoxPanel(Orientation.Horizontal){
-					
+
+				contents += new BoxPanel(Orientation.Horizontal) {
+
 					val listViewRegExes = new ListView(listRegExes)
 					val scrollListResult = new ScrollPane()
 					scrollListResult.contents = listViewRegExes
 					contents += scrollListResult
 				}
-				maximumSize = new Dimension(width/2, height-10)
+				maximumSize = new Dimension(width / 2, height - 10)
 			}
 		}
-		
-		contents += new BorderPanel{
-			add(new Label("Status: ")
-			,BorderPanel.Position.West)
+
+		contents += new BorderPanel {
+			add(new Label("Status: "), BorderPanel.Position.West)
 			maximumSize = new Dimension(width, 10)
 			background = java.awt.Color.BLUE
 		}
 	}
-	
+
 	centerOnScreen()
 	minimumSize = new Dimension(width, height)
 	resizable = false

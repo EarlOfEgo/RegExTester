@@ -20,6 +20,7 @@
 package com.regextester
 
 import scala.collection.mutable.HashMap
+import scala.swing.Publisher
 
 class RegExController {
 	/**

@@ -24,8 +24,9 @@ import java.io._
 import scala.io.Source
 import scala.io.BufferedSource
 import scala.Console._
+import scala.swing.Publisher
 
-class RegExModelBase(rec: RegExController) {
+class RegExModelBase(rec: RegExController) extends Publisher{
 	
 	/**
 	 * reference to the controller
