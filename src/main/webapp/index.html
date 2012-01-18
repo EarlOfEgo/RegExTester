@@ -1,19 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
-    <title>Home</title>
-  </head>
-  <body class="lift:content_id=main">
-    <div id="main" class="lift:surround?with=default&at=content">
-      <div>
-        Hi, I'm a page that contains the time:
-        <span class="lift:TimeNow">??? some time</span>.
-      </div>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+<title>RegExTester</title>
+</head>
+<body class="lift:content_id=main">
+	<div id="main" class="lift:surround?with=default&at=content">
 
-      <div>
-        And a button: <button class="lift:ClickMe">Click Me</button>.
-      </div>
-    </div>
-  </body>
+		<!-- <div class="lift:comet?type=RegExTester"> -->
+		<form class="lift:Input" >
+			<table class="table" cellpadding="2" cellspacing="2">
+				<tbody>
+					<tr>
+						<td class="cell">Enter Your Regular Expression<br>
+						</td>
+						<td class="cell">Enter Your String<br></td>
+					</tr>
+
+					<tr>
+
+						<td class="cell">
+							<!--<input class="lift:Input"
+								id="regex_in" /><br> --> <input name="regex_in">
+						</td>
+						<td class="cell">
+							<!--<input class="lift:Input"
+								id="string_in" /> <br>--> <input name="string_in">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="lift:Output winheadline"><em id="output"></em><br />
+								<br />  
+							<div class="lift:Result">
+								<ul>
+									<li class="result"></li>
+								</ul>
+							</div></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="cell"">
+							<!-- <button
+									class="lift:CheckButton">Check</button> --> <input
+							type="submit" value="Check" id="check">
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<!-- </div> -->
+</body>
 </html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+<title>RegExTester</title>
+</head>
+<body class="lift:content_id=main">
+	<div id="main" class="lift:surround?with=default&at=content">
+		RegExTester is a tool for checking your regular expressions<br>
+		<h4>Usage:</h4>
+		<ul>
+			<li>Enter a regular expression into the specific field</li>
+			<li>Enter a string into the specific field</li>
+			<li>Click the check button</li>
+		</ul>
+		<h4>Constraints:</h4>
+		<ul>
+			<li>Predefined metacharacters which the tool identifies
+			<ul class="listinlist">
+			<li>.</li>
+				<li>\w</li>
+				<li>\W</li>
+				<li>\d</li>
+				<li>\D</li>
+				<li>\s</li>
+				<li>\S</li>
+				
+			</ul>
+			</li>
+			<li>Every regular expression needs a quantifier</li>
+			<li>Valid quantifiers are:
+				<ul class="listinlist">
+					<li>?</li>
+					<li>+</li>
+					<li>*</li>
+					<li>{n}</li>
+					<li>{min,}</li>
+					<li>{min,max}</li>
+					<li>{0,max}</li>
+				</ul>
+			</li>
+			<li>Denoting a set of possible character matches works with [ ]</li>
+		</ul>
+
+		<h4>Samples:</h4>
+		<table>
+			<tr>
+				<th>RegEx</th>
+				<th>String</th>
+				<th>Matches</th>
+			</tr>
+			<tr>
+				<td>\d+\w{2}\w*</td>
+				<td>42isTheAnswer</td>
+				<td>Yes</td>
+			</tr>
+			<tr>
+				<td>\d+\w{2}\w*</td>
+				<td>The answer is 42</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>\w{1}1+\s?.{8}\d?\w{0,6}\s?R+e+g+\S{2}Tester{1}</td>
+				<td>H1 I'm th3 4m4zing Reg3xTester</td>
+				<td>Yes</td>
+			</tr>
+			<tr>
+				<td>[a-zA-Z-]+@{1}[a-zA-Z0-9-]+\.{1}[a-z]{2,4} </td>
+				<td>myAwesome@email-Adr3ss.com</td>
+				<td>Yes</td>
+			</tr>
+			<tr>
+				<td>\w{3}Ex{1}[^a^b^c]{6}\s?ROCKS{0,100}</td>
+				<td>RegExTester SUCKS</td>
+				<td>No</td>
+			</tr>
+
+		</table>
+
+
+	</div>
+</body>

@@ -1,0 +1,45 @@
+.regexoutput {
+	border-width: 3px;
+}
+
+.listinlist {
+	font-size: 15px;
+}
+
+.table {
+	text-align: left;
+	width: 70%;
+	border-width: 3px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.cell {
+	border-width: 3px;
+	vertical-align: top;
+}
+
+
+.result {
+	font-size: 15px;
+	color: #000000;
+}
+
+.winheadline {
+	font-size: 15px;
+	color: #088A08;
+}
+
+.failheadline {
+	font-size: 20px;
+	color: #DF0101;
+}
+
+.outputtext {
+	font-size: 15px;
+}
+
+textarea {
+	width: 98%;
+	height: 100%;
+}

@@ -3,11 +3,11 @@ package bootstrap.liftweb
 import net.liftweb._
 import util._
 import Helpers._
-
 import common._
 import http._
 import sitemap._
 import Loc._
+import net.liftweb.http.js.JsCmds.Alert
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -16,12 +16,13 @@ import Loc._
 class Boot {
 	def boot {
 
-		LiftRules.addToPackages("com.regextester.liftweb")
+		LiftRules.addToPackages("code")
 		// Build SiteMap
 		def sitemap(): SiteMap = SiteMap(
 			Menu.i("Home") / "index",
-			Menu.i("Second Page") / "second")
-
+			Menu.i("About") / "about",
+			Menu.i("History") / "history"
+			)
 		// set the sitemap. Note if you don't want access control for
 		// each page, just comment this line out.
 		LiftRules.setSiteMapFunc(() => sitemap())

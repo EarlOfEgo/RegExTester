@@ -19,7 +19,7 @@ class RegExModelBaseSpecTest extends Specification {
 
 	val model = new RegExModelBase(controller)
 	"A RegExModelBase" should {
-		"be not Null" in {
+		"not be Null" in {
 			model must not beNull
 		}
 
@@ -65,6 +65,18 @@ class RegExModelBaseSpecTest extends Specification {
 			model getFirstMatched ("\\d*", "42isTheAnswer") must beEqualTo("42")
 			model getFirstMatched ("\\d{2}", "42isTheAnswer") must beEqualTo("42")
 			model getFirstMatched ("[0-4]{2}", "42isTheAnswer") must beEqualTo("42")
+			model getFirstMatched ("\\s{2}", "  Hello") must beEqualTo("  ")
+			model getFirstMatched ("\\S{2}", "Hello") must beEqualTo("He")
+		}
+		
+		"recognizes parentheses" in {
+			model cutRegEx("(\\d*|\\w*)?\\d*") must beEqualTo(List("(\\d*|\\w*)?", "\\d*"))
+		}
+		
+		"recognizes except sign in regex" in {
+			model cutRegEx("[^a]?\\d*") must beEqualTo(List("[^a]?", "\\d*"))
+			model cutRegEx("[^a-z]?\\d*") must beEqualTo(List("[^a-z]?", "\\d*"))
+			model cutRegEx("\\W{1,3}[^a-z]{0,99}") must beEqualTo(List("\\W{1,3}", "[^a-z]{0,99}"))
 		}
 
 		/*
@@ -88,6 +100,27 @@ class RegExModelBaseSpecTest extends Specification {
 			strings += 2 -> "42isTheAnswer"
 			model chooseTheRegExAndString (regexes, strings, indexes) must contain("\\w*\\d*\\s*", "42isTheAnswer").only
 			model chooseTheRegExAndString (regexes, strings, indexes) must not contain ("\\d*[a-z]?", "Hallo")
+		}
+		
+				"recognizes an email address" in {
+//			val a = List(
+//					("[a-z]+", "rainer"), ("@{1}", "@"), ("[a-z0-9]+", "unsinn"), 
+//					("\\.{1}", "."), ("[a-z]{2,4}", "de"))
+//			model checkWholeExpression ("[a-z]+@{1}[a-z0-9]+\\.{1}[a-z]{2,4}", "rainer@unsinn.de") must beEqualTo(a)
+		
+			val a = List(("\\.{1}", "."))
+			model checkWholeExpression ("\\.{1}", ".") must beEqualTo(a)
+
+		}
+				
+						"checks super regex string" in {
+			val a = List(("\\w{1}", "H"), 
+					("1+", "1"), ("\\s?", " "), (".{8}", "I'm th3 "))
+			model checkWholeExpression ("\\w{1}1+\\s?.{8}", "H1 I'm th3 ") must beEqualTo(a)
+		
+//			val a = List(("\\.{1}", "."), ("[a-z]{2,4}", "de"))
+//			model checkWholeExpression ("\\.{1}[a-z]{2,4}", ".de") must beEqualTo(a)
+
 		}
 
 		/*
