@@ -32,6 +32,6 @@ object RegExTester {
 //  	var view = new RegExTui(controller)
 //  	view.printMenu
 //  	view.readInput	
-  	var view = new RegExGui(model) with GTKLookAndFeel
+  	var view = new RegExGui(model)
   }
 }

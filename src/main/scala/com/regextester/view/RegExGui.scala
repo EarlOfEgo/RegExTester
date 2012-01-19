@@ -42,7 +42,8 @@ import scala.swing.TextField
 
 import com.regextester.model.RegExModelBase
 
-class RegExGui(model: RegExModelBase) extends Frame {
+class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
+	
 	listenTo(model)
 	title = "RegExTester"
 
