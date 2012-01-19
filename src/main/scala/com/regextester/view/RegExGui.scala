@@ -51,21 +51,22 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 	val height = 480
 	
 	val boldFont = new java.awt.Font("Lucida Sans Typewriter", java.awt.Font.BOLD, 12)
-	val plainFont = new java.awt.Font("Lucida Sans Typewriter", java.awt.Font.PLAIN, 12)
+	val plainFont10 = new java.awt.Font("Lucida Sans Typewriter", java.awt.Font.PLAIN, 10)
+	val plainFont12 = new java.awt.Font("Lucida Sans Typewriter", java.awt.Font.PLAIN, 12)
 
 	//FOR TESTING
 	var listStrings = List("")
 	var listRegExes = List("")
 
 	var listViewRegExes = new ListView(listRegExes) {
-		font = plainFont
+		font = plainFont12
 		foreground = java.awt.Color.WHITE
 		background = java.awt.Color.DARK_GRAY
 	}
 	var scrollListRegEx = new ScrollPane
 
 	var listViewStrings = new ListView(listStrings) {
-		font = plainFont
+		font = plainFont12
 		foreground = java.awt.Color.WHITE
 		background = java.awt.Color.DARK_GRAY
 	}
@@ -133,7 +134,7 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 				if(matches.isEmpty) {
 					modifiedMatches = modifiedMatches :+ "Nothing was added to the History yet!"
 						listViewMatches = new ListView(modifiedMatches) {
-						font = plainFont
+						font = plainFont12
 						foreground = java.awt.Color.YELLOW
 						background = java.awt.Color.DARK_GRAY
 					}
@@ -142,7 +143,7 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 					matches = matches.distinct
 					matches.foreach(m => modifiedMatches = modifiedMatches :+ m._1 + " -> " + m._2)
 					listViewMatches = new ListView(modifiedMatches) {
-						font = plainFont
+						font = plainFont12
 						foreground = java.awt.Color.WHITE
 						background = java.awt.Color.DARK_GRAY
 					}
@@ -178,7 +179,7 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 	var regExInput : TextField = new TextField {
 		preferredSize = new Dimension(240, 20)
 		text = "Enter Your RegEx here"
-		peer.setFont(plainFont)
+		peer.setFont(plainFont10)
 		peer.setCaretPosition(text.size)
 		peer.setSelectionStart(0)
 		peer.setSelectionEnd(text.size)
@@ -196,7 +197,7 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 	var stringInput : TextField = new TextField {
 		preferredSize = new Dimension(240, 20)
 		text = "Enter Your String here"
-		peer.setFont(plainFont)
+		peer.setFont(plainFont10)
 		peer.setCaretPosition(text.size)
 		peer.setSelectionStart(0)
 		peer.setSelectionEnd(text.size)
@@ -217,12 +218,12 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 		  		
   		// to immediately show the result:
   		listViewRegExes = new ListView(listRegExes) {
-  			font = plainFont
+  			font = plainFont12
   			foreground = java.awt.Color.WHITE
   			background = java.awt.Color.DARK_GRAY
   		}
   		listViewStrings = new ListView(listStrings) {
-  			font = plainFont
+  			font = plainFont12
   			foreground = java.awt.Color.WHITE
   			background = java.awt.Color.DARK_GRAY
   		}
@@ -241,13 +242,13 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 	}
 
 	val regExToMatch = new TextField {
-		font = plainFont
+		font = plainFont10
 		preferredSize = new Dimension(240, 20)
 		editable = false
 	}
 
 	val stringToMatch = new TextField {
-		font = plainFont
+		font = plainFont10
 		preferredSize = new Dimension(240, 20)
 		editable = false
 	}
@@ -314,7 +315,7 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 					reactions += {
 						case selected => {
 							listViewRegExes = new ListView[String]() {
-								font = plainFont
+								font = plainFont12
 								foreground = java.awt.Color.WHITE
 								background = java.awt.Color.DARK_GRAY
 								listData = listRegExes
@@ -325,7 +326,7 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 							}
 							
 							listViewStrings = new ListView[String]() {
-								font = plainFont
+								font = plainFont12
 								foreground = java.awt.Color.WHITE
 								background = java.awt.Color.DARK_GRAY
 								listData = listStrings
@@ -369,8 +370,15 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 							action = Action("Check") {
 								if(regExToMatch.text.size > 0 && stringToMatch.text.size > 0) {
 									var result = model.checkWholeExpression(regExToMatch.text, stringToMatch.text)
-									if(result(0)._2.size == 0) {
-										val falseResult = "The given regex-string pair doesn't match!" :: Nil
+									var fail = result.filter(f => f._2.size == 0)
+									if(!fail.isEmpty) {
+										var falseResult :List[String] = List()
+										result.filter(res => res._2.size > 0).foreach(r => {
+											falseResult = falseResult :+ r._1 + " matched with " + r._2
+										})
+										fail.foreach(f => {
+											falseResult = falseResult :+ f._1 + " doesn't matched with " + f._2
+										})
 										val resultListView = new ListView(falseResult) {
 											font = boldFont
 											foreground = java.awt.Color.RED
@@ -380,9 +388,9 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 									}
 									else {
 										var trueResult : List[String] = List()
-										result.foreach(res => trueResult = trueResult :+ res._1 + " -> " + res._2 + " matches!")
+										result.foreach(res => trueResult = trueResult :+ res._1 + " matched with " + res._2)
 										val resultListView = new ListView(trueResult) {
-											font = plainFont
+											font = plainFont12
 											foreground = java.awt.Color.GREEN
 											background = java.awt.Color.DARK_GRAY
 										}
@@ -425,7 +433,7 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 				contents += new BoxPanel(Orientation.Horizontal) {
 
 					val listViewRegExes = new ListView(listRegExes) {
-						font = plainFont
+						font = plainFont12
 						foreground = java.awt.Color.WHITE
 						background = java.awt.Color.DARK_GRAY
 					}
