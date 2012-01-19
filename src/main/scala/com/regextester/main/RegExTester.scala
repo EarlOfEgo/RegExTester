@@ -21,7 +21,6 @@ package com.regextester.main
 
 import com.regextester.controller.RegExController
 import com.regextester.model.RegExModelBase
-import com.regextester.view.GTKLookAndFeel
 import com.regextester.view.RegExGui
 
 object RegExTester {
