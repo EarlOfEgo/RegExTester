@@ -21,7 +21,7 @@ trait LoadAboutHTMLContent {
 		aboutSource.getLines.foreach(line => line match {
 			case "<!DOCTYPE html>" =>
 			case noMetaTag(m) =>
-			case _				 => linesFromAboutHtmlList = linesFromAboutHtmlList :+ line + "\n"
+			case _ => linesFromAboutHtmlList = linesFromAboutHtmlList :+ line + "\n"
 		})
 	}
 }

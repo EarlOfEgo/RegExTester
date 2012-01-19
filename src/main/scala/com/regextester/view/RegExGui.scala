@@ -80,7 +80,6 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel with 
 	val aboutAction = Action("About") {
 		val aboutFrame = new Frame {
 			title = "About RegExTester"
-			
 			contents = new BoxPanel(Orientation.Vertical) {
 				contents += new FlowPanel {
 					contents += new Label {
