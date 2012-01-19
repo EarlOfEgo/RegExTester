@@ -42,7 +42,7 @@ class RegExTui(model : RegExModelBase) extends RegExView {
 	/**
 	 * introducing view with controller and vice versa
 	 */
-	init(model rec_)
+	init(model.controller)
 	printMenu()
 	readInput()
 	

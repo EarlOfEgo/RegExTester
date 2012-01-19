@@ -12,10 +12,9 @@ class RegExControllerSpecTest extends Specification {
 		val base = new RegExModelBase(c)
 
 		"be referenced in RegExModelBase ..." in {
-			
 
 			"... and shouldn't be null" in {
-				base.rec_ mustEqual c
+				base.controller mustEqual c
 			}
 
 			"... and has a reference to the RegExModelBase" in {
@@ -23,29 +22,29 @@ class RegExControllerSpecTest extends Specification {
 			}
 		}
 
-//		"be referenced in RegExTui ..." in {
-//			val tui = new RegExTui(base)
-//
-//			"... and shouldn't be null" in {
-//				tui.rec_ mustEqual c
-//			}
-//
-//			"... and has a reference to the RegExTui" in {
-//				c.views.exists(t => t == tui) must beTrue
-//			}
+		//		"be referenced in RegExTui ..." in {
+		//			val tui = new RegExTui(base)
+		//
+		//			"... and shouldn't be null" in {
+		//				tui.rec_ mustEqual c
+		//			}
+		//
+		//			"... and has a reference to the RegExTui" in {
+		//				c.views.exists(t => t == tui) must beTrue
+		//			}
 
-//			" ... and is able to deal with another RegExTui by ... " in {
-//				val newTui = new RegExTui(base)
-//
-//				"... adding it to its internal view list ..." in {
-//					c.views.contains(newTui) must beTrue
-//				}
-//
-//				"... and removing it from this list again" in {
-//					c removeView newTui
-//					c.views.contains(newTui) must beFalse
-//				}
-//			}
-//		}
+		//			" ... and is able to deal with another RegExTui by ... " in {
+		//				val newTui = new RegExTui(base)
+		//
+		//				"... adding it to its internal view list ..." in {
+		//					c.views.contains(newTui) must beTrue
+		//				}
+		//
+		//				"... and removing it from this list again" in {
+		//					c removeView newTui
+		//					c.views.contains(newTui) must beFalse
+		//				}
+		//			}
+		//		}
 	}
 }

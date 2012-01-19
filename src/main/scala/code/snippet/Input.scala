@@ -25,37 +25,41 @@ object Input {
 
 	private def process() = {
 		Result.result = Vector()
-		if (regex.isEmpty() || string.isEmpty())
+		if (regex.isEmpty || string.isEmpty)
 			Output.result = "Enter a regular expression and a string"
 		else {
-			var output = regex + " checked with " + string + "\n"
-			var result = model.checkWholeExpression(regex, string)
-			var fail = result.filter(s => s._2.size == 0)
-			if (!fail.isEmpty) {
-				Output.win = false
-				Output.result = output + " doesn't match!"
-				History.history :+= output + " and doesn't match!"
-
-				result.filter(s => s._2.size > 0).foreach(t => {
-					Result.win = true
-					Result.result :+= t._1 + " matched with " + t._2
-				})
-				fail.foreach(f => {
-					Result.win = false
-					Result.result :+= f._1 + " DOESN'T MATCH"
-				})
-
-			} else {
-				result.foreach(t => {
-					Result.win = true
-					Result.result :+= t._1 + " matched with " + t._2
-				})
-				Output.win = true
-				Output.result = output
-				History.history :+= output + " and matched"
-			}
+			processInputAndOutput()
 		}
 		S.notice("String: " + regex)
 		S.redirectTo(whence)
+	}
+
+	private def processInputAndOutput() {
+		var output = regex + " checked with " + string + "\n"
+		var result = model.checkWholeExpression(regex, string)
+		var fail = result.filter(s => s._2.size == 0)
+		if (!fail.isEmpty) {
+			Output.win = false
+			Output.result = output + " doesn't match!"
+			History.history :+= output + " and doesn't match!"
+
+			result.filter(s => s._2.size > 0).foreach(t => {
+				Result.win = true
+				Result.result :+= t._1 + " matched with " + t._2
+			})
+			fail.foreach(f => {
+				Result.win = false
+				Result.result :+= f._1 + " DOESN'T MATCH"
+			})
+
+		} else {
+			result.foreach(t => {
+				Result.win = true
+				Result.result :+= t._1 + " matched with " + t._2
+			})
+			Output.win = true
+			Output.result = output
+			History.history :+= output + " and matched"
+		}
 	}
 }

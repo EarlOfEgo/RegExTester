@@ -51,7 +51,7 @@ class RegExController {
 	/**
 	 * method that redirects incoming inputs from a view to the model
 	 */
-	def inputChange(s : String) = remb matchString(s)
+	def inputChange(s : String):Unit = remb matchString s
 	
 	/**
 	 * method that invokes corresponding method on the view side
@@ -66,7 +66,7 @@ class RegExController {
 	/**
 	 * method that invokes the printHelpScreen-method on all registered views
 	 */
-	def invokeHelpScreen : Unit = views.foreach(i => i.printHelpScreen)
+	def invokeHelpScreen() : Unit = views.foreach(i => i.printHelpScreen)
 	
 	/**
 	 * delegates the passed String to the view

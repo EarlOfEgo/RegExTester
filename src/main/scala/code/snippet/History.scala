@@ -5,6 +5,6 @@ import util._
 import Helpers._
 
 object History {
-	var history: Vector[String] = Vector()
+	var history = Vector[String]()
 	def render = "li *" #> history
 }

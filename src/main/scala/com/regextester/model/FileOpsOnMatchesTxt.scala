@@ -46,7 +46,7 @@ class FileOpsOnMatchesTxt(model : RegExModelBase) {
 	/**
 	 * opens the file that includes the matched string-regex pairs
 	 */
-	def loadMatches = {
+	def loadMatches():Unit = {
 		val f = new File("matches.txt")
 		var s : BufferedSource = null
 		if(!f.exists) {

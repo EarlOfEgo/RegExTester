@@ -1,9 +1,7 @@
 package com.regextester.view
 
-import javax.swing.UIManager
-
 trait SystemLookAndFeel {
-	try {
-  		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName)
-  	}
+	import javax.swing.UIManager._
+	try setLookAndFeel(getSystemLookAndFeelClassName)
+	catch { case _ => setLookAndFeel(getCrossPlatformLookAndFeelClassName) }
 }
