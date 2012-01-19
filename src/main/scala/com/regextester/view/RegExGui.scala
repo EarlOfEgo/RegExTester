@@ -39,10 +39,11 @@ import scala.swing.MenuItem
 import scala.swing.Orientation
 import scala.swing.ScrollPane
 import scala.swing.TextField
+import scala.swing.TextArea
 
 import com.regextester.model.RegExModelBase
 
-class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
+class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel with LoadAboutHTMLContent {
 	
 	listenTo(model)
 	title = "RegExTester"
@@ -82,28 +83,11 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel {
 			
 			contents = new BoxPanel(Orientation.Vertical) {
 				contents += new FlowPanel {
-					contents += new Label("\"RegExTester V1.0\"") {
-						font = new java.awt.Font("Lucida Sans Typewriter", java.awt.Font.BOLD, 18)
-						preferredSize = new Dimension(300, 25)
-					}
-					
-				}
-				contents += new FlowPanel {
-					contents += new Label(169.toChar + " Stephan Hagios &") {
-						font = new java.awt.Font("Lucida Sans Typewriter", java.awt.Font.HANGING_BASELINE, 14)
-						preferredSize = new Dimension(300, 20)
-					}
-				}
-				contents += new FlowPanel {
-					contents += new Label("Felix Schmidt") {
-					  font = new java.awt.Font("Lucida Sans Typewriter", java.awt.Font.HANGING_BASELINE, 14)
-						preferredSize = new Dimension(300, 15)
-					}
-				}
-				contents += new FlowPanel {
-					contents += new Label(64.toChar + " HTWG Konstanz") {
-						font = new java.awt.Font("Lucida Sans Typewriter", java.awt.Font.HANGING_BASELINE, 13)
-						preferredSize = new Dimension(300, 40)
+					contents += new Label {
+						var about = ""
+						loadLinesFromAboutHtml
+						linesFromAboutHtmlList.foreach(e => about = about + e)
+						peer.setText(about)
 					}
 				}
 			}

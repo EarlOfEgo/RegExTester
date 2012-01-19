@@ -1,38 +1,38 @@
 <classpath>
-  <classpathentry output="target/scala-2.9.1/classes" path="src/main/scala" kind="src"></classpathentry>
-  <classpathentry output="target/scala-2.9.1/classes" path="src/main/resources" kind="src"></classpathentry>
-  <classpathentry output="target/scala-2.9.1/test-classes" path="src/test/scala" kind="src"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.specs2/specs2_2.9.1/jars/specs2_2.9.1-1.6.1.jar" sourcepath="/home/stephan/.ivy2/cache/org.specs2/specs2_2.9.1/srcs/specs2_2.9.1-1.6.1-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.specs2/specs2-scalaz-core_2.9.1/jars/specs2-scalaz-core_2.9.1-6.0.1.jar" sourcepath="/home/stephan/.ivy2/cache/org.specs2/specs2-scalaz-core_2.9.1/srcs/specs2-scalaz-core_2.9.1-6.0.1-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.scala-lang/scala-swing/jars/scala-swing-2.9.1.jar" sourcepath="/home/stephan/.ivy2/cache/org.scala-lang/scala-swing/srcs/scala-swing-2.9.1-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/net.liftweb/lift-webkit_2.9.1/jars/lift-webkit_2.9.1-2.4.jar" sourcepath="/home/stephan/.ivy2/cache/net.liftweb/lift-webkit_2.9.1/srcs/lift-webkit_2.9.1-2.4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/commons-fileupload/commons-fileupload/jars/commons-fileupload-1.2.2.jar" sourcepath="/home/stephan/.ivy2/cache/commons-fileupload/commons-fileupload/srcs/commons-fileupload-1.2.2-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/net.liftweb/lift-util_2.9.1/jars/lift-util_2.9.1-2.4.jar" sourcepath="/home/stephan/.ivy2/cache/net.liftweb/lift-util_2.9.1/srcs/lift-util_2.9.1-2.4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/commons-codec/commons-codec/jars/commons-codec-1.4.jar" sourcepath="/home/stephan/.ivy2/cache/commons-codec/commons-codec/srcs/commons-codec-1.4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/nu.validator.htmlparser/htmlparser/jars/htmlparser-1.2.1.jar" sourcepath="/home/stephan/.ivy2/cache/nu.validator.htmlparser/htmlparser/srcs/htmlparser-1.2.1-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/javax.mail/mail/jars/mail-1.4.4.jar" sourcepath="/home/stephan/.ivy2/cache/javax.mail/mail/srcs/mail-1.4.4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/javax.activation/activation/jars/activation-1.1.jar" sourcepath="/home/stephan/.ivy2/cache/javax.activation/activation/srcs/activation-1.1-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/joda-time/joda-time/jars/joda-time-1.6.2.jar" sourcepath="/home/stephan/.ivy2/cache/joda-time/joda-time/srcs/joda-time-1.6.2-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/net.liftweb/lift-actor_2.9.1/jars/lift-actor_2.9.1-2.4.jar" sourcepath="/home/stephan/.ivy2/cache/net.liftweb/lift-actor_2.9.1/srcs/lift-actor_2.9.1-2.4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/net.liftweb/lift-common_2.9.1/jars/lift-common_2.9.1-2.4.jar" sourcepath="/home/stephan/.ivy2/cache/net.liftweb/lift-common_2.9.1/srcs/lift-common_2.9.1-2.4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.6.4.jar" sourcepath="/home/stephan/.ivy2/cache/org.slf4j/slf4j-api/srcs/slf4j-api-1.6.4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/net.liftweb/lift-json_2.9.1/jars/lift-json_2.9.1-2.4.jar" sourcepath="/home/stephan/.ivy2/cache/net.liftweb/lift-json_2.9.1/srcs/lift-json_2.9.1-2.4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/com.thoughtworks.paranamer/paranamer/jars/paranamer-2.3.jar" sourcepath="/home/stephan/.ivy2/cache/com.thoughtworks.paranamer/paranamer/srcs/paranamer-2.3-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.scala-lang/scalap/jars/scalap-2.9.1.jar" sourcepath="/home/stephan/.ivy2/cache/org.scala-lang/scalap/srcs/scalap-2.9.1-sources.jar" kind="lib"></classpathentry>
+  <classpathentry output=".target/scala-2.9.1/classes" path="src/main/scala" kind="src"></classpathentry>
+  <classpathentry output=".target/scala-2.9.1/classes" path="src/main/resources" kind="src"></classpathentry>
+  <classpathentry output=".target/scala-2.9.1/test-classes" path="src/test/scala" kind="src"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.specs2/specs2_2.9.1/jars/specs2_2.9.1-1.6.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.specs2/specs2-scalaz-core_2.9.1/jars/specs2-scalaz-core_2.9.1-6.0.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.scala-lang/scala-swing/jars/scala-swing-2.9.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/net.liftweb/lift-webkit_2.9.1/jars/lift-webkit_2.9.1-2.4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/commons-fileupload/commons-fileupload/jars/commons-fileupload-1.2.2.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/net.liftweb/lift-util_2.9.1/jars/lift-util_2.9.1-2.4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/commons-codec/commons-codec/jars/commons-codec-1.4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/nu.validator.htmlparser/htmlparser/jars/htmlparser-1.2.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/javax.mail/mail/jars/mail-1.4.4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/javax.activation/activation/jars/activation-1.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/joda-time/joda-time/jars/joda-time-1.6.2.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/net.liftweb/lift-actor_2.9.1/jars/lift-actor_2.9.1-2.4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/net.liftweb/lift-common_2.9.1/jars/lift-common_2.9.1-2.4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.6.4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/net.liftweb/lift-json_2.9.1/jars/lift-json_2.9.1-2.4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/com.thoughtworks.paranamer/paranamer/jars/paranamer-2.3.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.scala-lang/scalap/jars/scalap-2.9.1.jar" kind="lib"></classpathentry>
   <classpathentry path="org.scala-ide.sdt.launching.SCALA_COMPILER_CONTAINER" kind="con"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/ch.qos.logback/logback-classic/jars/logback-classic-1.0.0.jar" sourcepath="/home/stephan/.ivy2/cache/ch.qos.logback/logback-classic/srcs/logback-classic-1.0.0-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/ch.qos.logback/logback-core/jars/logback-core-1.0.0.jar" sourcepath="/home/stephan/.ivy2/cache/ch.qos.logback/logback-core/srcs/logback-core-1.0.0-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-webapp/jars/jetty-webapp-8.1.0.RC4.jar" sourcepath="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-webapp/srcs/jetty-webapp-8.1.0.RC4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-xml/jars/jetty-xml-8.1.0.RC4.jar" sourcepath="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-xml/srcs/jetty-xml-8.1.0.RC4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-util/jars/jetty-util-8.1.0.RC4.jar" sourcepath="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-util/srcs/jetty-util-8.1.0.RC4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-servlet/jars/jetty-servlet-8.1.0.RC4.jar" sourcepath="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-servlet/srcs/jetty-servlet-8.1.0.RC4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-security/jars/jetty-security-8.1.0.RC4.jar" sourcepath="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-security/srcs/jetty-security-8.1.0.RC4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-server/jars/jetty-server-8.1.0.RC4.jar" sourcepath="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-server/srcs/jetty-server-8.1.0.RC4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.mortbay.jetty/servlet-api/jars/servlet-api-3.0.20100224.jar" sourcepath="/home/stephan/.ivy2/cache/org.mortbay.jetty/servlet-api/srcs/servlet-api-3.0.20100224-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-continuation/jars/jetty-continuation-8.1.0.RC4.jar" sourcepath="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-continuation/srcs/jetty-continuation-8.1.0.RC4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-http/jars/jetty-http-8.1.0.RC4.jar" sourcepath="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-http/srcs/jetty-http-8.1.0.RC4-sources.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-io/jars/jetty-io-8.1.0.RC4.jar" sourcepath="/home/stephan/.ivy2/cache/org.eclipse.jetty/jetty-io/srcs/jetty-io-8.1.0.RC4-sources.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/ch.qos.logback/logback-classic/jars/logback-classic-1.0.0.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/ch.qos.logback/logback-core/jars/logback-core-1.0.0.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.eclipse.jetty/jetty-webapp/jars/jetty-webapp-8.1.0.RC4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.eclipse.jetty/jetty-xml/jars/jetty-xml-8.1.0.RC4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.eclipse.jetty/jetty-util/jars/jetty-util-8.1.0.RC4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.eclipse.jetty/jetty-servlet/jars/jetty-servlet-8.1.0.RC4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.eclipse.jetty/jetty-security/jars/jetty-security-8.1.0.RC4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.eclipse.jetty/jetty-server/jars/jetty-server-8.1.0.RC4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.mortbay.jetty/servlet-api/jars/servlet-api-3.0.20100224.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.eclipse.jetty/jetty-continuation/jars/jetty-continuation-8.1.0.RC4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.eclipse.jetty/jetty-http/jars/jetty-http-8.1.0.RC4.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/napoleonwilson/.ivy2/cache/org.eclipse.jetty/jetty-io/jars/jetty-io-8.1.0.RC4.jar" kind="lib"></classpathentry>
   <classpathentry path="org.scala-ide.sdt.launching.SCALA_CONTAINER" kind="con"></classpathentry>
   <classpathentry path="org.eclipse.jdt.launching.JRE_CONTAINER" kind="con"></classpathentry>
-  <classpathentry path="target/scala-2.9.1/classes" kind="output"></classpathentry>
+  <classpathentry path=".target/scala-2.9.1/classes" kind="output"></classpathentry>
 </classpath>
