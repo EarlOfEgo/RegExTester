@@ -24,10 +24,10 @@ import scala.Console.RESET
 import scala.Console.YELLOW
 import scala.Console.println
 import scala.Console.readLine
-
 import com.regextester.controller.RegExController
+import com.regextester.model.RegExModelBase
 
-class RegExTui(rec : RegExController) extends RegExView {
+class RegExTui(model : RegExModelBase) extends RegExView {
 	
 	/**
 	 * variable for manipulating the input sequence
@@ -42,7 +42,9 @@ class RegExTui(rec : RegExController) extends RegExView {
 	/**
 	 * introducing view with controller and vice versa
 	 */
-	init(rec)
+	init(model rec_)
+	printMenu()
+	readInput()
 	
 	/**
 	 * writes the output, if desired in a colored context
