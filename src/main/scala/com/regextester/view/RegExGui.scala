@@ -355,7 +355,7 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel with 
 									var result = model.checkWholeExpression(regExToMatch.text, stringToMatch.text)
 									var fail = result.filter(f => f._2.size == 0)
 									if(!fail.isEmpty) {
-										var falseResult :List[String] = List()
+										var falseResult : List[String] = List()
 										result.filter(res => res._2.size > 0).foreach(r => {
 											falseResult = falseResult :+ r._1 + " matched with " + r._2
 										})

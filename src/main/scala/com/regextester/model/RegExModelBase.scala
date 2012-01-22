@@ -136,12 +136,21 @@ class RegExModelBase(var controller: RegExController) extends Publisher {
 	 */
 	def matchPairByIdx(str: Int, reg: Int) = {
 		if (str - 1 < matchedStr.size && reg - 1 < matchedReg.size) {
-			if (checkWholeExpression(matchedReg(reg - 1), matchedStr(str - 1)).exists(m => m._2.size == 0)) {
-				notifyC("Error")(RED)
+			var result = checkWholeExpression(matchedReg(reg - 1), matchedStr(str - 1))
+			var fail = result.filter(f => f._2.size == 0)
+			if (!fail.isEmpty) {
+				notifyC("Error!")(RED)
+				result.filter(res => res._2.size > 0).foreach(r => {
+					notifyC(r._1 + " matched with " + r._2)(GREEN)
+				})
+				fail.foreach(f => {
+					notifyC(f._1 + " doesn't matched with " + f._2)(RED)
+				})
 				notifyC("The given string-regex pair doesn't match!")
 				false
 			} else {
 				notifyC("Success!")(GREEN)
+				result.foreach(res => notifyC(res._1 + " matched with " + res._2)(GREEN))
 				notifyC("The string-regex pair has matched!")
 				true
 			}
