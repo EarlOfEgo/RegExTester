@@ -29,12 +29,12 @@ class RegExModelBaseSpecTest extends Specification {
 	 */
 	"The mechanism for cuttin a regular expression" should {
 
-		"identify all metacharacters with qunatifiers" in {
+		"identify all metacharacters with quantifiers" in {
 			val a = List("\\w*", "\\W?", "\\s+", "\\S*", "\\d?", "\\D+")
 			model cutRegEx ("\\w*\\W?\\s+\\S*\\d?\\D+") must beEqualTo(a)
 		}
 
-		"identify text in a regualr expression" in {
+		"identify text in a regular expression" in {
 			val a = List("\\w*", "Hello?", "World+")
 			model cutRegEx ("\\w*Hello?World+") must beEqualTo(a)
 		}
@@ -71,7 +71,7 @@ class RegExModelBaseSpecTest extends Specification {
 	 */
 	"The mechanism for getting the first match" should {
 
-		"succeed with all identifier and quantifiers" in {
+		"succeed with all identifiers and quantifiers" in {
 			model getFirstMatched ("\\w*", "Hallo") must beEqualTo("Hallo")
 			model getFirstMatched ("\\W?", "-Hallo") must beEqualTo("-")
 			model getFirstMatched ("\\s+", " Hallo") must beEqualTo(" ")
@@ -86,7 +86,7 @@ class RegExModelBaseSpecTest extends Specification {
 			model getFirstMatched ("My?", "MyMyName") must beEqualTo("My")
 		}
 
-		"succeed with using square brakets" in {
+		"succeed with using square brackets" in {
 			model getFirstMatched ("[H]*", "Hallo") must beEqualTo("H")
 			model getFirstMatched ("[a-z]*", "hallo") must beEqualTo("hallo")
 			model getFirstMatched ("[0-9h]*", "123hallo") must beEqualTo("123h")
