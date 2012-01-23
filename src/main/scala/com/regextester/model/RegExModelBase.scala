@@ -144,7 +144,7 @@ class RegExModelBase(var controller: RegExController) extends Publisher {
 					notifyC(r._1 + " matched with " + r._2)(GREEN)
 				})
 				fail.foreach(f => {
-					notifyC(f._1 + " doesn't matched with " + f._2)(RED)
+					notifyC(f._1 + " doesn't matched!")(RED)
 				})
 				notifyC("The given string-regex pair doesn't match!")
 				false

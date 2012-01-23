@@ -360,7 +360,7 @@ class RegExGui(model: RegExModelBase) extends Frame with SystemLookAndFeel with 
 											falseResult = falseResult :+ r._1 + " matched with " + r._2
 										})
 										fail.foreach(f => {
-											falseResult = falseResult :+ f._1 + " doesn't matched with " + f._2
+											falseResult = falseResult :+ f._1 + " doesn't matched!"
 										})
 										val resultListView = new ListView(falseResult) {
 											font = boldFont
