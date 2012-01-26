@@ -15,17 +15,17 @@ For running the lift application you have to start the server with:
 $ container:start
 ```
 
-To execute all test which are provided with tool, run:
+After doing this, your server runs and you can find the application at: localhost:8080
+
+To execute all the tests which are provided with the tool, run:
 ```$ sbt
 $ test
 ```
-After doing this, your server runs and you can find the application at: localhost:8080
-
 Usage
 ---
 Just type in your regular expression and a string which should be tested.
 Every view(Gui, Tui, Web) provides an about or help screen with additional information.
 
-In the Gui choose the About dialogue in the menu.
+In the Gui choose the about dialogue in the menu.
 In the Tui enter :help or :h for the help screen.
-In the web choose also the About button in the menu.
+In the Web choose also the About tab in the menu.

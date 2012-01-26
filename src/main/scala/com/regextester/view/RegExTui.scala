@@ -108,12 +108,12 @@ class RegExTui(model : RegExModelBase) extends RegExView {
 	}
 	
 	/**
-	 * prints the help screen that tells the user how to use the regextester
+	 * prints the help screen that tells the user how to use the RegExTester
 	 */
 	def printHelpScreen = {
 		writeOutput("The following commands are available:\n")
 		writeOutput(":help; :h\t\t\tcommands that print this screen")
-		writeOutput(":quit; :q; :exit\t\tfor exiting the regextester")
+		writeOutput(":quit; :q; :exit\t\tfor exiting the RegExTester")
 		writeOutput(":s (string)\t\t\tadding a String (string) for matching")
 		writeOutput(":r (regex)\t\t\tadding a Regular Expression (regex) for matching")
 		writeOutput(":l\t\t\t\tlist all available Strings and RegExes")
@@ -121,7 +121,7 @@ class RegExTui(model : RegExModelBase) extends RegExView {
 		writeOutput("\t\t\t\tby their indeces in the List (see command ':l')")
 		writeOutput(":m\t\t\t\tprints the string-regex pairs to the console")
 		writeOutput("\t\t\t\tthat have already matched from a previous run")
-		writeOutput("\t\t\t\tof the Regextester\n")
+		writeOutput("\t\t\t\tof the RegExTester\n")
 	}
 	
 	/**
