@@ -13,8 +13,7 @@ libraryDependencies ++= Seq(
 	"org.specs2" %% "specs2-scalaz-core" % "6.0.1" % "test",
 	"org.scala-lang" % "scala-swing" % "2.9.1",
   	"net.liftweb" %% "lift-webkit" % "latest.release",
-  	"org.eclipse.jetty" % "jetty-webapp" % "latest.release" % "container, test", 
-  	"ch.qos.logback" % "logback-classic" % "latest.release"
+	"org.mortbay.jetty" % "jetty" % "6.1.22" % "container"
 )
 
 scalacOptions ++= Seq(
